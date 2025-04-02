@@ -1,26 +1,18 @@
-import { useState } from "react";
 import "./App.css";
-import HomePage from "./HomePage";
-import AboutPage from "./AboutPage";
 import { Route, Routes, Navigate } from "react-router-dom";
-import ProductPage from "./page/ProductPage";
-import ProductDetailPage from "./page/ProductDetailPage";
-import LoginPage from "./page/LoginPage";
-import UserPage from "./page/UserPage";
+import Main from "./pages/Main";
 
 function App() {
-  const [authenticate, setAuthenticate] = useState(false);
-  const PrivateRoute = () => {
-    return authenticate ? <UserPage /> : <Navigate to="/login" />;
-  };
+  // 1. 유저는 메뉴와 상품들을 볼 수 있다.
+  // 2. 유저는 로그인을 할 수 있다.
+  // 3. 유저는 상품 디테일을 보기 위해 로그인을 해야한다.
+  // 4. 로그인한 유저는 상품 디테일 정보를 볼 수 있다.
+  // 5. 유저는 상품을 검색할 수 있다.
+  // 6. 유저는 로그아웃 할 수 있다.
+
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/products" element={<ProductPage />} />
-      <Route path="/products/:id/:num" element={<ProductDetailPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/user" element={<PrivateRoute />} />
+      <Route path="/" element={<Main />} />
     </Routes>
   );
 }
