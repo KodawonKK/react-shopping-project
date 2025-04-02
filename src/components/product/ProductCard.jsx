@@ -13,7 +13,7 @@ const PriceInfoWrap = styled.div`
 `;
 const PriceWrap = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
 `;
 const Price = styled.div`
   &.discounted {

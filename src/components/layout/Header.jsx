@@ -11,15 +11,17 @@ const HeaderWrap = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 20px 20px;
+  position: fixed;
+  background: #fff;
+  z-index: 9999;
+  box-sizing: border-box;
+  width: 100%;
 `;
-const ImgWrap = styled.div`
-  width: 160px;
-`;
+const ImgWrap = styled.div``;
 const MenuWrap = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
-  padding: 0 10px;
 `;
 const MenuList = styled.div`
   font-weight: 700;
