@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import ProductCard from "./ProductCard";
+import Card from "../common/Card";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import jsonData from "../../../src/dataList.json";
 
 const ProductListWrap = styled.div`
   padding: 20px 0;
@@ -20,16 +27,27 @@ const ProductWrap = styled.div`
 
 const ProductList = ({ title }) => {
   return (
-    <div>
-      <ProductListWrap>
-        <Title>{title}</Title>
-        <ProductWrap>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </ProductWrap>
-      </ProductListWrap>
-    </div>
+    <ProductListWrap>
+      <Title>{title}</Title>
+      <ProductWrap>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3}
+          modules={[Navigation, Autoplay]}
+          navigation
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          // onSlideChange={() => console.log("slide change")}
+          onSwiper={(swiper) => console.log(swiper)}
+          loop={true}
+        >
+          {jsonData.map((item, idx) => (
+            <SwiperSlide key={idx}>
+              <Card item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </ProductWrap>
+    </ProductListWrap>
   );
 };
 

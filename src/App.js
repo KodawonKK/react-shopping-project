@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Main from "./pages/Main";
+import HomePage from "./pages/HomePage";
 
 function App() {
   // 1. 유저는 메뉴와 상품들을 볼 수 있다.
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/" element={<HomePage />} />
     </Routes>
   );
 }
