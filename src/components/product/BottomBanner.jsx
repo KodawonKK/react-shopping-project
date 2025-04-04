@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import btmBannerData from "../../btmBannerList.json";
 
 const BannerWrap = styled.div`
   background: #000;
-  padding: 20px 20px;
+  padding: 50px 20px;
   display: flex;
   gap: 10px;
 `;
@@ -17,24 +18,34 @@ const TextWrap = styled.h3`
 `;
 const BtmTxt = styled.p`
   color: #fff;
+  height: 40px;
+`;
+const ViewMore = styled.span`
+  color: #9b9898;
+  cursor: pointer;
+  &::after {
+    content: "";
+    width: 50%;
+    height: 1px;
+    background: #9b9898;
+    display: block;
+    margin-top: 2px;
+  }
 `;
 
 const BottomBanner = () => {
   return (
     <BannerWrap>
-      <CardWrap>
-        <ImgWrap>
-          <img src={require("../../assets/images/product1.jpg")} alt="하단 이벤트 배너" width={"100%"} />
-        </ImgWrap>
-
-        <TextWrap>스프링 이너 위크</TextWrap>
-        <BtmTxt>지금 입기 좋은 이너 20%</BtmTxt>
-      </CardWrap>
-      <CardWrap>
-        <img src={require("../../assets/images/product1.jpg")} alt="하단 이벤트 배너" width={"100%"} />
-        <TextWrap>스프링 이너 위크</TextWrap>
-        <BtmTxt>지금 입기 좋은 이너 20%</BtmTxt>
-      </CardWrap>
+      {btmBannerData.map((item, idx) => (
+        <CardWrap key={idx}>
+          <ImgWrap>
+            <img src={require(`../../assets/images/${item.img}.jpg`)} alt="하단 이벤트 배너" width={"100%"} />
+          </ImgWrap>
+          <TextWrap>{item.comment}</TextWrap>
+          <BtmTxt>{item.comment2}</BtmTxt>
+          <ViewMore>VIEW MORE {">"}</ViewMore>
+        </CardWrap>
+      ))}
     </BannerWrap>
   );
 };

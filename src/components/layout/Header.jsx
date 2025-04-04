@@ -25,6 +25,7 @@ const MenuWrap = styled.div`
 `;
 const MenuList = styled.div`
   font-weight: 700;
+  cursor: pointer;
 `;
 const IconMenuWrap = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const IconMenuWrap = styled.div`
 const IconMenuList = styled.div`
   width: 28px;
   padding-right: 10px;
+  cursor: pointer;
 `;
 
 const Header = () => {
