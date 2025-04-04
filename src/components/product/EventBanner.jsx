@@ -40,7 +40,7 @@ const EventBanner = () => {
         {BannerList.map((item, idx) => (
           <SwiperSlide>
             <BannerWrap key={idx}>
-              <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" />
+              <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" style={{ width: "100%" }} />
               <TextWrap>
                 <TopText>{item.comment}</TopText>
                 <BtmText>{item.comment2}</BtmText>
