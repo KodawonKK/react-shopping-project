@@ -7,7 +7,6 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-import jsonData from "../../../src/dataList.json";
 
 const ProductListWrap = styled.div`
   padding: 20px 0;
@@ -26,7 +25,6 @@ const ProductWrap = styled.div`
 `;
 
 const ProductList = ({ title, product }) => {
-  console.log(product);
   return (
     <ProductListWrap>
       <Title>{title}</Title>
@@ -38,7 +36,7 @@ const ProductList = ({ title, product }) => {
           navigation
           autoplay={{ delay: 2000, disableOnInteraction: false }}
           // onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          // onSwiper={(swiper) => console.log(swiper)}
           loop={true}
         >
           {product?.map((item, idx) => (

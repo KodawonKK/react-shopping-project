@@ -21,6 +21,8 @@ const CardNum = styled.span`
 const ProductName = styled.h3`
   font-weight: 400;
   height: 50px;
+  font-size: 18px;
+  padding: 10px 0;
 `;
 const PriceInfoWrap = styled.div`
   display: flex;

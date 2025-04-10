@@ -12,7 +12,7 @@ const Home = () => {
     let url = `http://localhost:5000/products/`;
     let response = await fetch(url);
     let data = await response.json();
-    setProductList(data.product);
+    setProductList(data);
   };
   useEffect(() => {
     getProducts();

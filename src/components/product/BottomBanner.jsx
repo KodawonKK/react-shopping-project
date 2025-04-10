@@ -11,10 +11,24 @@ const BannerWrap = styled.div`
 const CardWrap = styled.div`
   width: 90%;
   margin: 0 auto;
+  overflow: hidden;
 `;
-const ImgWrap = styled.div``;
+const ImgWrap = styled.div`
+  overflow: hidden;
+`;
+const BannerImg = styled.img`
+  width: 100%;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
 const TextWrap = styled.h3`
+  padding: 10px 0;
   color: #fff;
+  font-size: 19.5px;
 `;
 const BtmTxt = styled.p`
   color: #fff;
@@ -39,7 +53,7 @@ const BottomBanner = () => {
       {btmBannerData.map((item, idx) => (
         <CardWrap key={idx}>
           <ImgWrap>
-            <img src={require(`../../assets/images/${item.img}.jpg`)} alt="하단 이벤트 배너" width={"100%"} />
+            <BannerImg src={require(`../../assets/images/${item.img}.jpg`)} alt="하단 이벤트 배너" />
           </ImgWrap>
           <TextWrap>{item.comment}</TextWrap>
           <BtmTxt>{item.comment2}</BtmTxt>
