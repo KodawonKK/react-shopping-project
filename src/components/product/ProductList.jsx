@@ -25,7 +25,8 @@ const ProductWrap = styled.div`
   gap: 15px;
 `;
 
-const ProductList = ({ title }) => {
+const ProductList = ({ title, product }) => {
+  console.log(product);
   return (
     <ProductListWrap>
       <Title>{title}</Title>
@@ -40,7 +41,7 @@ const ProductList = ({ title }) => {
           onSwiper={(swiper) => console.log(swiper)}
           loop={true}
         >
-          {jsonData.map((item, idx) => (
+          {product?.map((item, idx) => (
             <SwiperSlide key={idx}>
               <Card item={item} />
             </SwiperSlide>

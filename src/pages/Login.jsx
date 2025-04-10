@@ -4,9 +4,9 @@ import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 
 const LoginWrap = styled.div`
-  padding: 80px 0;
   text-align: center;
   border: 3px solid red;
+  min-height: 500px;
 `;
 const LoginInput = styled.input`
   margin: 0 auto;
@@ -23,10 +23,10 @@ const LoginFind = styled.span`
   border: 3px solid red;
 `;
 
-function LoginPage() {
+function Login() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <LoginWrap>
         <h1>로그인</h1>
         <LoginInput />
@@ -38,4 +38,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Login;
