@@ -36,7 +36,7 @@ const EventBanner = () => {
         loop={true}
         modules={[Navigation, Autoplay]}
         navigation
-        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
       >
         {BannerList.map((item, idx) => (
           <SwiperSlide key={idx}>

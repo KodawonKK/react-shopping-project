@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProductDetail from "./pages/ProductDetail";
