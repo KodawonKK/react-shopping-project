@@ -9,6 +9,7 @@ import "swiper/css/autoplay";
 
 const BannerWrap = styled.div`
   padding-top: 80px;
+  cursor: pointer;
 `;
 const TextWrap = styled.div`
   position: absolute;
@@ -38,8 +39,8 @@ const EventBanner = () => {
         autoplay={{ delay: 2000, disableOnInteraction: false }}
       >
         {BannerList.map((item, idx) => (
-          <SwiperSlide>
-            <BannerWrap key={idx}>
+          <SwiperSlide key={idx}>
+            <BannerWrap>
               <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" style={{ width: "100%" }} />
               <TextWrap>
                 <TopText>{item.comment}</TopText>

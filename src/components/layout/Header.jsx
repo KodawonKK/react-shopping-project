@@ -5,6 +5,7 @@ import MyPageIcon from "../../assets/icon/mypage.svg";
 import SearchIcon from "../../assets/icon/search.svg";
 import WishIcon from "../../assets/icon/wish.svg";
 import CartIcon from "../../assets/icon/cart.svg";
+import { Link } from "react-router-dom";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -53,9 +54,11 @@ const Header = () => {
       </MenuWrap>
       <IconMenuWrap>
         {iconMenu.map((item, idx) => (
-          <IconMenuList key={idx}>
-            <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-          </IconMenuList>
+          <Link to="/login" key={idx}>
+            <IconMenuList>
+              <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+            </IconMenuList>
+          </Link>
         ))}
       </IconMenuWrap>
     </HeaderWrap>

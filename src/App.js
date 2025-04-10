@@ -1,6 +1,8 @@
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import { useState } from "react";
 
 function App() {
   // 1. 유저는 메뉴와 상품들을 볼 수 있다.
@@ -9,10 +11,12 @@ function App() {
   // 4. 로그인한 유저는 상품 디테일 정보를 볼 수 있다.
   // 5. 유저는 상품을 검색할 수 있다.
   // 6. 유저는 로그아웃 할 수 있다.
+  const [authentic, setAuthenticate] = useState(false);
 
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 }
