@@ -6,6 +6,7 @@ const FooterWrap = styled.div`
   border-top: 1px solid #ddd;
   padding: 30px 40px;
   display: flex;
+  text-align: left;
 `;
 const Tel = styled.h1`
   font-size: 30px;

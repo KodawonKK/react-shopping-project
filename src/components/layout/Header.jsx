@@ -44,9 +44,12 @@ const Header = () => {
 
   return (
     <HeaderWrap className="header">
-      <ImgWrap>
-        <img src={Logo} alt="미쏘로고" width={"100%"} />
-      </ImgWrap>
+      <Link to="/">
+        <ImgWrap>
+          <img src={Logo} alt="미쏘로고" width={"100%"} />
+        </ImgWrap>
+      </Link>
+
       <MenuWrap>
         {menu.map((item, idx) => (
           <MenuList key={idx}>{item}</MenuList>
