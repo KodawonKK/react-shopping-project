@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../top_logo.png";
 import MyPageIcon from "../../assets/icon/mypage.svg";
 import SearchIcon from "../../assets/icon/search.svg";
 import WishIcon from "../../assets/icon/wish.svg";
 import CartIcon from "../../assets/icon/cart.svg";
-import { Link } from "react-router-dom";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -41,6 +42,11 @@ const IconMenuList = styled.div`
 const Header = () => {
   const menu = ["세일", "뉴컬렉션", "신상품", "베스트", "전체상품", "기획전"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <HeaderWrap className="header">
@@ -57,11 +63,9 @@ const Header = () => {
       </MenuWrap>
       <IconMenuWrap>
         {iconMenu.map((item, idx) => (
-          <Link to="/login" key={idx}>
-            <IconMenuList>
-              <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-            </IconMenuList>
-          </Link>
+          <IconMenuList key={idx} onClick={goToLogin}>
+            <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+          </IconMenuList>
         ))}
       </IconMenuWrap>
     </HeaderWrap>
