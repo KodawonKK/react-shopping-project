@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const CardWrap = styled.div`
@@ -20,8 +21,8 @@ const CardNum = styled.span`
 `;
 const ProductName = styled.h3`
   font-weight: 400;
-  height: 50px;
-  font-size: 18px;
+  height: 55px;
+  font-size: 17px;
   padding: 10px 0;
 `;
 const PriceInfoWrap = styled.div`
@@ -60,23 +61,27 @@ const ColorBox = styled.span`
 `;
 
 const Card = ({ kind, item }) => {
+  console.log(kind);
+  const navigate = useNavigate();
+  const gotoProductDetail = () => {
+    navigate(`/product/${item.id}`);
+  };
   return (
-    <CardWrap>
+    <CardWrap onClick={gotoProductDetail}>
       <CardImgWrap>
-        {kind === "best" ? <CardNum>{item.id}</CardNum> : ""}
+        {kind === "best" && <CardNum>{item.id}</CardNum>}
         <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="상품" width="100%" />
       </CardImgWrap>
       <ProductName>{item.name}</ProductName>
       <PriceInfoWrap>
         <PriceWrap>
-          <Price className="discounted">{item.orgprice}</Price>
+          <Price className="discounted">{item.salePrice}</Price>
           <Price className="original">{item.price}</Price>
         </PriceWrap>
-        <Price className="percentage">{item.percent}</Price>
+        {kind !== "coordi" && <Price className="percentage">{item.percent}</Price>}
       </PriceInfoWrap>
-      {item.color.map((color, idx) => (
-        <ColorBox style={{ background: color }} key={idx}></ColorBox>
-      ))}
+
+      {kind !== "coordi" && item.color.map((color, idx) => <ColorBox style={{ background: color }} key={idx}></ColorBox>)}
     </CardWrap>
   );
 };

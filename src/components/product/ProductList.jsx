@@ -24,14 +24,14 @@ const ProductWrap = styled.div`
   gap: 15px;
 `;
 
-const ProductList = ({ title, product }) => {
+const ProductList = ({ title, product, kind }) => {
   return (
-    <ProductListWrap>
-      <Title>{title}</Title>
+    <ProductListWrap style={kind === "coordi" ? { maxWidth: "1000px", margin: "0 auto" } : {}}>
+      <Title style={kind === "coordi" ? { textAlign: "left", padding: "20px 30px", fontSize: "30px", fontWeight: 100 } : {}}>{title}</Title>
       <ProductWrap>
         <Swiper
           spaceBetween={20}
-          slidesPerView={3}
+          slidesPerView={kind === "coordi" ? 4 : 3}
           modules={[Navigation, Autoplay]}
           navigation
           autoplay={{ delay: 2000, disableOnInteraction: false }}
@@ -41,7 +41,7 @@ const ProductList = ({ title, product }) => {
         >
           {product?.map((item, idx) => (
             <SwiperSlide key={idx}>
-              <Card item={item} />
+              <Card item={item} kind={kind} />
             </SwiperSlide>
           ))}
         </Swiper>

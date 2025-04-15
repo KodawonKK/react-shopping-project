@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
-        <Route path="/product/:id" element={authenticate ? <Login /> : <ProductDetail />} />
+        <Route path="/product/:id" element={authenticate ? <ProductDetail /> : <Login setAuthenticate={setAuthenticate} />} />
       </Routes>
     </>
   );
