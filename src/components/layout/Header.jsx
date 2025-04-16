@@ -22,7 +22,7 @@ const HeaderWrap = styled.div`
 const ImgWrap = styled.div``;
 const MenuWrap = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
 `;
 const MenuList = styled.div`
@@ -34,7 +34,7 @@ const IconMenuWrap = styled.div`
   align-items: baseline;
 `;
 const IconMenuList = styled.div`
-  width: 28px;
+  width: 23px;
   padding-right: 10px;
   cursor: pointer;
 `;
