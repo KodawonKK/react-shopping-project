@@ -21,6 +21,7 @@ const FooterLeft = styled.div`
 `;
 const PolicyWrap = styled.div`
   display: flex;
+  padding-top: 30px;
 `;
 const PolicyItem = styled.span`
   padding-right: 20px;
