@@ -6,7 +6,7 @@ const ProductInfoTabMenu = styled.div`
   border-bottom: 1px solid #ddd;
   align-items: center;
   justify-content: space-around;
-  max-width: 800px;
+  max-width: 1050px;
   margin: 0 auto;
 `;
 const ProductInfoTabList = styled.div`

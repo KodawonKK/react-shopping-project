@@ -26,12 +26,12 @@ const ProductWrap = styled.div`
 
 const ProductList = ({ title, product, kind }) => {
   return (
-    <ProductListWrap style={kind === "coordi" ? { maxWidth: "1000px", margin: "0 auto" } : {}}>
+    <ProductListWrap style={{ maxWidth: "1000px", margin: "0 auto" }}>
       <Title style={kind === "coordi" ? { textAlign: "left", padding: "20px 30px", fontSize: "30px", fontWeight: 100 } : {}}>{title}</Title>
       <ProductWrap>
         <Swiper
           spaceBetween={20}
-          slidesPerView={kind === "coordi" ? 4 : 3}
+          slidesPerView={4}
           modules={[Navigation, Autoplay]}
           navigation
           autoplay={{ delay: 2000, disableOnInteraction: false }}
