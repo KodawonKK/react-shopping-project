@@ -274,7 +274,7 @@ const ProductDetail = () => {
       {/* 상품 관련 상세 정보 */}
       <ProductInfo>
         {/* 상품 상세 정보 탭 렌더링*/}
-        <ProductInfoTab scrollToReview={scrollToReview} />
+        <ProductInfoTab scrollToReview={scrollToReview} tabNum={0} />
         {/* 상품 상세 정보 이미지 */}
         <ProductInfoImgWrap>
           <ProductInfoImg src={require(`../assets/images/detail1.jpg`)} alt="상품" />
@@ -282,7 +282,7 @@ const ProductDetail = () => {
       </ProductInfo>
       {/* 상품 상세 정보 탭 렌더링*/}
       <ProductDetailBottom ref={scrollReview}>
-        <ProductInfoTab scrollToReview={scrollToReview} />
+        <ProductInfoTab scrollToReview={scrollToReview} tabNum={1} />
         {/* 후기 이미지 */}
         <ReviewImg>
           <img src={require("../assets/images/review_guide.jpg")} alt="리뷰가이드" width="100%" />

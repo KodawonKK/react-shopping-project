@@ -18,21 +18,24 @@ const ProductInfoTabList = styled.div`
     color: #000;
     font-weight: 500;
   }
+  &:hover {
+    color: #000;
+  }
 `;
 
-const ProductInfoTab = ({ scrollToReview }) => {
+const ProductInfoTab = ({ scrollToReview, tabNum }) => {
   const productDetailTabList = ["상세정보", "상품후기", "상품문의"];
-  const [selectNum, setSelectNum] = useState(0);
+  // const [selectNum, setSelectNum] = useState(0);
 
   const selectMenu = (idx) => {
-    setSelectNum(idx);
+    // setSelectNum(idx);
     scrollToReview(idx);
   };
 
   return (
     <ProductInfoTabMenu>
       {productDetailTabList.map((item, idx) => (
-        <ProductInfoTabList key={idx} onClick={() => selectMenu(idx)} className={idx === selectNum ? "select" : ""}>
+        <ProductInfoTabList key={idx} onClick={() => selectMenu(idx)} className={tabNum === idx ? "select" : ""}>
           {item}
         </ProductInfoTabList>
       ))}
