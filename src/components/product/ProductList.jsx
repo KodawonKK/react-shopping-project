@@ -9,10 +9,11 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
 const ProductListWrap = styled.div`
-  padding: 20px 0;
+  /* padding: 20px 0; */
 `;
 const Title = styled.h1`
   text-align: center;
+  padding: 15px 0;
 `;
 const ProductWrap = styled.div`
   max-width: 1720px;

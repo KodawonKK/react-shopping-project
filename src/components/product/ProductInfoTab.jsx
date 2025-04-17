@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const ProductInfoTabMenu = styled.div`
@@ -14,15 +14,26 @@ const ProductInfoTabList = styled.div`
   padding: 10px 30px;
   color: #a0a0a0;
   font-weight: 300;
+  &.select {
+    color: #000;
+    font-weight: 500;
+  }
 `;
 
 const ProductInfoTab = () => {
   const productDetailTabList = ["상세정보", "상품후기", "상품문의"];
+  const [selectNum, setSelectNum] = useState(0);
+
+  const selectMenu = (idx) => {
+    setSelectNum(idx);
+  };
 
   return (
     <ProductInfoTabMenu>
       {productDetailTabList.map((item, idx) => (
-        <ProductInfoTabList key={idx}>{item}</ProductInfoTabList>
+        <ProductInfoTabList key={idx} onClick={() => selectMenu(idx)} className={idx === selectNum ? "select" : ""}>
+          {item}
+        </ProductInfoTabList>
       ))}
     </ProductInfoTabMenu>
   );

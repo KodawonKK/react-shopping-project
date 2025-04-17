@@ -6,8 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ProductList from "../components/product/ProductList";
+import ProductInfoTab from "../components/product/ProductInfoTab";
 
-const ProductDetailWrap = styled.div``;
+const ProductDetailWrap = styled.div`
+  padding: 0 10px;
+`;
 const ProductDetailTop = styled.div`
   padding-top: 90px;
   max-width: 950px;
@@ -16,7 +19,7 @@ const ProductDetailTop = styled.div`
   margin: 0 auto;
   display: flex;
   margin-bottom: 50px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 15px;
 `;
 const ProductDetailImg = styled.div`
@@ -83,6 +86,9 @@ const SelectBtn = styled.button`
   border: 1px solid #d7d7d7;
   margin: 0 2px;
   cursor: pointer;
+  &.active {
+    border: 1px solid #000;
+  }
 `;
 const RequiredTxt = styled.p`
   padding-top: 5px;
@@ -127,12 +133,48 @@ const ProductGuideWrap = styled.div`
   }
 `;
 const ProductGuide = styled.div``;
+const MidBanner = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+`;
+const ProductInfo = styled.div`
+  max-width: 900px;
+  margin: 0px auto;
+  padding: 0 20px;
+`;
+const ProductInfoImgWrap = styled.div`
+  max-width: 700px;
+  margin: 0px auto;
+  padding: 100px 0;
+`;
+const ProductInfoImg = styled.img`
+  width: 100%;
+`;
+const ReviewImg = styled.div`
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 30px 0 20px;
+`;
 
 const ProductDetail = () => {
   const [productData, setProductData] = useState([]);
   const [coordiList, setCoordiList] = useState([]);
+  const [colorBtn, setColorBtn] = useState(null);
+  const [sizeBtn, setSizeBtn] = useState(null);
 
   const { id } = useParams();
+
+  const menuItems = [
+    { type: "icon", content: faHeartRegular },
+    { type: "cart", content: "장바구니" },
+    { type: "purchase", content: "구매하기" }
+  ];
+  const guideTitleList = [
+    { type: "scroll", title: "상품 사이즈 및 상품 정보 제공공시" },
+    { type: "popup", title: "배송안내" },
+    { type: "popup", title: "취소/반품/교환/환불 안내" }
+  ];
 
   const getProductDetail = async () => {
     let url = `http://localhost:5000/products/${id}`;
@@ -147,18 +189,11 @@ const ProductDetail = () => {
     setCoordiList(data);
   };
 
-  let productID = productData?.name?.split("_")[1];
+  // 기능 추가 이후, 하나의 함수로 리팩토링할 수 있을지 검토 예정
+  const handleColorBtn = (idx) => setColorBtn(idx);
+  const handleSizeBtn = (idx) => setSizeBtn(idx);
 
-  const menuItems = [
-    { type: "icon", content: faHeartRegular },
-    { type: "cart", content: "장바구니" },
-    { type: "purchase", content: "구매하기" }
-  ];
-  const guideTitleList = [
-    { type: "scroll", title: "상품 사이즈 및 상품 정보 제공공시" },
-    { type: "popup", title: "배송안내" },
-    { type: "popup", title: "취소/반품/교환/환불 안내" }
-  ];
+  let productID = productData?.name?.split("_")[1];
 
   useEffect(() => {
     getProductDetail();
@@ -176,7 +211,7 @@ const ProductDetail = () => {
           <ProductName>{productData?.name}</ProductName>
           <PriceInfoWrap>
             <PriceWrap>
-              <Price className="discounted">{productData?.orgprice}</Price>
+              <Price className="discounted">{productData?.salePrice}</Price>
               <Price className="original">{productData?.price}</Price>
               <Price className="percentage">{productData?.percent}</Price>
             </PriceWrap>
@@ -187,7 +222,9 @@ const ProductDetail = () => {
               <Color>Color</Color>
               <div>
                 {productData?.colorEng?.map((item, idx) => (
-                  <SelectBtn key={idx}>{item}</SelectBtn>
+                  <SelectBtn key={idx} onClick={() => handleColorBtn(idx)} className={colorBtn === idx ? "active" : ""}>
+                    {item}
+                  </SelectBtn>
                 ))}
                 <RequiredTxt>[필수] color 선택</RequiredTxt>
               </div>
@@ -196,7 +233,9 @@ const ProductDetail = () => {
               <Color>Size</Color>
               <div>
                 {productData?.size?.map((item, idx) => (
-                  <SelectBtn key={idx}>{item}</SelectBtn>
+                  <SelectBtn key={idx} onClick={() => handleSizeBtn(idx)} className={sizeBtn === idx ? "active" : ""}>
+                    {item}
+                  </SelectBtn>
                 ))}
                 <RequiredTxt>[필수] Size 선택</RequiredTxt>
               </div>
@@ -219,7 +258,24 @@ const ProductDetail = () => {
       </ProductDetailTop>
       {/* 코디 추천  */}
       <ProductList title="코디 아이템" product={coordiList} kind={"coordi"} />
-      {/* <img src={require(`src/assets/images/detail1.jpg`)} alt="상품" /> */}
+      {/* 중간 배너 */}
+      <MidBanner>
+        <img src={require("../assets/images/mid_banner.jpg")} style={{ width: "100%" }} alt="중간 배너" />
+      </MidBanner>
+      {/* 상품 관련 상세 정보 */}
+      <ProductInfo>
+        {/* 상품 상세 정보 탭 렌더링*/}
+        <ProductInfoTab />
+        {/* 상품 상세 정보 이미지 */}
+        <ProductInfoImgWrap>
+          <ProductInfoImg src={require(`../assets/images/detail1.jpg`)} alt="상품" />
+        </ProductInfoImgWrap>
+      </ProductInfo>
+      {/* 상품 상세 정보 탭 렌더링*/}
+      <ProductInfoTab />
+      <ReviewImg>
+        <img src={require("../assets/images/review_guide.jpg")} alt="리뷰가이드" width="100%" />
+      </ReviewImg>
       {/* 푸터 */}
       <Footer />
     </ProductDetailWrap>

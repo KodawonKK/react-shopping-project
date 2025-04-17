@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CardWrap = styled.div`
@@ -61,7 +61,6 @@ const ColorBox = styled.span`
 `;
 
 const Card = ({ kind, item }) => {
-  console.log(kind);
   const navigate = useNavigate();
   const gotoProductDetail = () => {
     navigate(`/product/${item.id}`);
