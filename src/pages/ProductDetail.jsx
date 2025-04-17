@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
@@ -151,6 +151,7 @@ const ProductInfoImgWrap = styled.div`
 const ProductInfoImg = styled.img`
   width: 100%;
 `;
+const ProductDetailBottom = styled.div``;
 const ReviewImg = styled.div`
   max-width: 800px;
   margin: 0px auto;
@@ -162,6 +163,10 @@ const ProductDetail = () => {
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
   const [sizeBtn, setSizeBtn] = useState(null);
+
+  const scrollDetail = useRef(null);
+  const scrollReview = useRef(null);
+  const scrollQnA = useRef(null);
 
   const { id } = useParams();
 
@@ -192,6 +197,10 @@ const ProductDetail = () => {
   // 기능 추가 이후, 하나의 함수로 리팩토링할 수 있을지 검토 예정
   const handleColorBtn = (idx) => setColorBtn(idx);
   const handleSizeBtn = (idx) => setSizeBtn(idx);
+  const scrollToReview = (idx) => {
+    if (idx === 0) scrollDetail.current.scrollIntoView({ behavior: "smooth" });
+    if (idx === 1) scrollReview.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   let productID = productData?.name?.split("_")[1];
 
@@ -259,23 +268,27 @@ const ProductDetail = () => {
       {/* 코디 추천  */}
       <ProductList title="코디 아이템" product={coordiList} kind={"coordi"} />
       {/* 중간 배너 */}
-      <MidBanner>
+      <MidBanner ref={scrollDetail}>
         <img src={require("../assets/images/mid_banner.jpg")} style={{ width: "100%" }} alt="중간 배너" />
       </MidBanner>
       {/* 상품 관련 상세 정보 */}
       <ProductInfo>
         {/* 상품 상세 정보 탭 렌더링*/}
-        <ProductInfoTab />
+        <ProductInfoTab scrollToReview={scrollToReview} />
         {/* 상품 상세 정보 이미지 */}
         <ProductInfoImgWrap>
           <ProductInfoImg src={require(`../assets/images/detail1.jpg`)} alt="상품" />
         </ProductInfoImgWrap>
       </ProductInfo>
       {/* 상품 상세 정보 탭 렌더링*/}
-      <ProductInfoTab />
-      <ReviewImg>
-        <img src={require("../assets/images/review_guide.jpg")} alt="리뷰가이드" width="100%" />
-      </ReviewImg>
+      <ProductDetailBottom ref={scrollReview}>
+        <ProductInfoTab scrollToReview={scrollToReview} />
+        {/* 후기 이미지 */}
+        <ReviewImg>
+          <img src={require("../assets/images/review_guide.jpg")} alt="리뷰가이드" width="100%" />
+        </ReviewImg>
+      </ProductDetailBottom>
+
       {/* 푸터 */}
       <Footer />
     </ProductDetailWrap>

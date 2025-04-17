@@ -20,12 +20,13 @@ const ProductInfoTabList = styled.div`
   }
 `;
 
-const ProductInfoTab = () => {
+const ProductInfoTab = ({ scrollToReview }) => {
   const productDetailTabList = ["상세정보", "상품후기", "상품문의"];
   const [selectNum, setSelectNum] = useState(0);
 
   const selectMenu = (idx) => {
     setSelectNum(idx);
+    scrollToReview(idx);
   };
 
   return (
