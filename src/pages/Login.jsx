@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const LoginInput = styled.input`
   display: block;
   width: 60%;
   border: 1px solid #ddd;
-  padding: 10px 0;
+  padding: 10px 15px;
   outline: none;
 `;
 const LoginFind = styled.span`
@@ -32,7 +32,7 @@ const LoginBtn = styled.button`
   background: #000;
   display: block;
   margin: 0 auto;
-  width: 60%;
+  width: 65%;
   color: #fff;
   padding: 8px 0;
   margin-top: 10px;
@@ -53,19 +53,43 @@ const SignTxt = styled.div`
 
 const Login = ({ setAuthenticate }) => {
   const navigate = useNavigate();
-  const loginUser = (event) => {
-    console.log("login user function issue");
-    event.preventDefault();
-    setAuthenticate(true);
-    navigate("/");
+  const [userId, setUserId] = useState("");
+  const [userPwd, setUserPwd] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser();
+    } catch (error) {
+      console.error("로그인 처리 중 오류:", error);
+    }
+  };
+  const loginUser = async () => {
+    let id = userId;
+    let pwd = userPwd;
+    let url = `http://localhost:5000/user?id=${id}&password=${pwd}`;
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("서버 응답 오류");
+    }
+
+    let json = await response.json();
+
+    if (json.length === 0) {
+      setAuthenticate(false);
+    } else {
+      setAuthenticate(true);
+      navigate("/");
+    }
   };
 
   return (
     <LoginWrap>
-      <LoginInputWrap onSubmit={(event) => loginUser(event)}>
+      <LoginInputWrap onSubmit={(e) => handleLogin(e)}>
         <LoginTitle>로그인</LoginTitle>
-        <LoginInput />
-        <LoginInput />
+        <LoginInput placeholder="아이디" value={userId} onChange={(e) => setUserId(e.target.value)} />
+        <LoginInput placeholder="비밀번호" value={userPwd} onChange={(e) => setUserPwd(e.target.value)} />
         <LoginBtn type="submit">로그인</LoginBtn>
         <SignTxtWrap>
           <SignTxt>아이디∙비밀번호 찾기</SignTxt>

@@ -141,5 +141,9 @@
       "price": "29,900",
       "img": "coordi/5"
     }
+  ],
+  "user": [
+    { "id": "test", "password": "1234" },
+    { "id": "test2", "password": "1234" }
   ]
 }

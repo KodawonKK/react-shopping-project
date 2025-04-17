@@ -25,7 +25,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
-        <Route path="/product/:id" element={authenticate ? <ProductDetail /> : <Login setAuthenticate={setAuthenticate} />} />
+        {/* <Route path="/product/:id" element={authenticate ? <ProductDetail /> : <Login setAuthenticate={setAuthenticate} />} /> */}
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </>
   );
