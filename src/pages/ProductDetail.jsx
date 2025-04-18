@@ -4,6 +4,7 @@ import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ProductList from "../components/product/ProductList";
 import ProductInfoTab from "../components/product/ProductInfoTab";
@@ -163,6 +164,9 @@ const ProductDetail = () => {
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
   const [sizeBtn, setSizeBtn] = useState(null);
+  const [isLike, setLike] = useState(false);
+  const [isColor, setColor] = useState("Color");
+  const [isSize, setSize] = useState("Size");
 
   const scrollDetail = useRef(null);
   const scrollReview = useRef(null);
@@ -195,11 +199,20 @@ const ProductDetail = () => {
   };
 
   // 기능 추가 이후, 하나의 함수로 리팩토링할 수 있을지 검토 예정
-  const handleColorBtn = (idx) => setColorBtn(idx);
-  const handleSizeBtn = (idx) => setSizeBtn(idx);
+  const handleColorBtn = (item, idx) => {
+    setColorBtn(idx);
+    setColor(item);
+  };
+  const handleSizeBtn = (item, idx) => {
+    setSizeBtn(idx);
+    setSize(item);
+  };
   const scrollToReview = (idx) => {
     if (idx === 0) scrollDetail.current.scrollIntoView({ behavior: "smooth" });
     if (idx === 1) scrollReview.current.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleLikeBtn = () => {
+    setLike((prev) => !prev);
   };
 
   let productID = productData?.name?.split("_")[1];
@@ -231,34 +244,40 @@ const ProductDetail = () => {
               <Color>Color</Color>
               <div>
                 {productData?.colorEng?.map((item, idx) => (
-                  <SelectBtn key={idx} onClick={() => handleColorBtn(idx)} className={colorBtn === idx ? "active" : ""}>
+                  <SelectBtn key={idx} onClick={() => handleColorBtn(item, idx)} className={colorBtn === idx ? "active" : ""}>
                     {item}
                   </SelectBtn>
                 ))}
-                <RequiredTxt>[필수] color 선택</RequiredTxt>
+                <RequiredTxt>[필수] {isColor} 선택</RequiredTxt>
               </div>
             </RequireWrap>
             <RequireWrap>
               <Color>Size</Color>
               <div>
                 {productData?.size?.map((item, idx) => (
-                  <SelectBtn key={idx} onClick={() => handleSizeBtn(idx)} className={sizeBtn === idx ? "active" : ""}>
+                  <SelectBtn key={idx} onClick={() => handleSizeBtn(item, idx)} className={sizeBtn === idx ? "active" : ""}>
                     {item}
                   </SelectBtn>
                 ))}
-                <RequiredTxt>[필수] Size 선택</RequiredTxt>
+                <RequiredTxt>[필수] {isSize} 선택</RequiredTxt>
               </div>
             </RequireWrap>
           </DetailInfoWrap>
           {/* 장바구니 , 구매하기, 좋아요 버튼 렌더링   */}
           <BottomBtnWrap>
-            {menuItems.map((item) => (
-              <BottomBtn className={item.type}>{item.type === "icon" ? <FontAwesomeIcon icon={item.content} size="2x" /> : item.content}</BottomBtn>
+            {menuItems.map((item, idx) => (
+              <BottomBtn className={item.type} key={idx}>
+                {item.type === "icon" ? (
+                  <FontAwesomeIcon icon={isLike ? faHeart : item.content} size="2x" onClick={() => handleLikeBtn()} style={isLike ? { color: "red" } : { color: "#000" }} />
+                ) : (
+                  item.content
+                )}
+              </BottomBtn>
             ))}
           </BottomBtnWrap>
           {/* 상품 안내 관련 렌더링 */}
-          {guideTitleList.map((item) => (
-            <ProductGuideWrap>
+          {guideTitleList.map((item, idx) => (
+            <ProductGuideWrap key={idx}>
               <ProductGuide>{item.title}</ProductGuide>
               <FontAwesomeIcon icon={faPlus} />
             </ProductGuideWrap>

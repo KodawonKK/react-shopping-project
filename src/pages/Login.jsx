@@ -78,6 +78,7 @@ const Login = ({ setAuthenticate }) => {
 
     if (json.length === 0) {
       setAuthenticate(false);
+      alert("로그인 실패");
     } else {
       setAuthenticate(true);
       navigate("/");
@@ -88,8 +89,8 @@ const Login = ({ setAuthenticate }) => {
     <LoginWrap>
       <LoginInputWrap onSubmit={(e) => handleLogin(e)}>
         <LoginTitle>로그인</LoginTitle>
-        <LoginInput placeholder="아이디" value={userId} onChange={(e) => setUserId(e.target.value)} />
-        <LoginInput placeholder="비밀번호" value={userPwd} onChange={(e) => setUserPwd(e.target.value)} />
+        <LoginInput placeholder="아이디" type="text" value={userId} onChange={(e) => setUserId(e.target.value)} />
+        <LoginInput placeholder="비밀번호" type="password" value={userPwd} onChange={(e) => setUserPwd(e.target.value)} />
         <LoginBtn type="submit">로그인</LoginBtn>
         <SignTxtWrap>
           <SignTxt>아이디∙비밀번호 찾기</SignTxt>
