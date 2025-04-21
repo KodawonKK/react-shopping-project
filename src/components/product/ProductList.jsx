@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../common/Card";
-import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
