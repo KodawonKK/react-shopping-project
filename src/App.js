@@ -5,12 +5,15 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/layout/Header";
+import MyPage from "./pages/MyPage";
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false); // true 로그인이 됨 false면 로그인 안됨
+  const status = localStorage.getItem("login");
   useEffect(() => {
-    console.log(authenticate, "aaaa");
-  }, []);
+    console.log(status, "app");
+    // localStorage.removeItem("login");
+  }, [status]);
   // 1. 유저는 메뉴와 상품들을 볼 수 있다.
   //1-1 네비게이션 바
   // 2. 유저는 로그인을 할 수 있다.
@@ -25,8 +28,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
-        {/* <Route path="/product/:id" element={authenticate ? <ProductDetail /> : <Login setAuthenticate={setAuthenticate} />} /> */}
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/mypage" element={status === "true" ? <MyPage /> : <Login setAuthenticate={setAuthenticate} />} />
       </Routes>
     </>
   );

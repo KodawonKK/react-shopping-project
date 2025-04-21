@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +55,7 @@ const Login = ({ setAuthenticate }) => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPwd, setUserPwd] = useState("");
+  const status = localStorage.getItem("login");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -81,9 +82,13 @@ const Login = ({ setAuthenticate }) => {
       alert("로그인 실패");
     } else {
       setAuthenticate(true);
+      localStorage.setItem("login", true);
       navigate("/");
     }
   };
+  useEffect(() => {
+    console.log(status, "status1");
+  }, [status]);
 
   return (
     <LoginWrap>
