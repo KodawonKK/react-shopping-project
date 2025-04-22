@@ -41,7 +41,7 @@ const IconMenuWrap = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-around;
-  width: 15%;
+  /* width: 15%; */
 `;
 const IconMenuList = styled.div`
   width: 27px;
