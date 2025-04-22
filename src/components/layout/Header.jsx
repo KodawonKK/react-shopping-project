@@ -44,6 +44,7 @@ const IconMenuWrap = styled.div`
   /* width: 15%; */
 `;
 const IconMenuList = styled.div`
+  position: relative;
   width: 27px;
   padding-right: 20px;
   cursor: pointer;
@@ -52,15 +53,32 @@ const MypageModalWrap = styled.div`
   position: absolute;
   right: 30px;
   bottom: -30px;
-  display: flex;
+  display: none;
   padding: 15px 10px;
   font-size: 13px;
   border: 1px solid #cbcbcb;
   background-color: #fff;
+  &.menu {
+    display: flex;
+  }
 `;
 const MypageModal = styled.div`
   margin: 0 5px;
   cursor: pointer;
+`;
+const CartNum = styled.span`
+  position: absolute;
+  right: 15px;
+  bottom: 2px;
+  background: red;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  text-align: center;
+  line-height: 18px;
+  color: #fff;
+  font-weight: bold;
 `;
 
 const Header = ({ setAuthenticate }) => {
@@ -68,6 +86,7 @@ const Header = ({ setAuthenticate }) => {
   const menu = ["세일", "뉴컬렉션", "신상품", "베스트", "전체상품", "기획전"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
   const myPageMenu = [loginStatus ? "로그아웃" : "로그인", "주문조회", "마이페이지"];
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   const clickMenu = (idx) => {
@@ -90,9 +109,6 @@ const Header = ({ setAuthenticate }) => {
       navigate("/mypage");
     }
   };
-  useEffect(() => {
-    // console.log(loginStatus, "로그인 상태");
-  }, [loginStatus]);
 
   return (
     <HeaderWrap className="header">
@@ -110,13 +126,14 @@ const Header = ({ setAuthenticate }) => {
         </MenuWrap>
         <IconMenuWrap>
           {iconMenu.map((item, idx) => (
-            <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
+            <IconMenuList key={idx} onClick={() => clickMenu(idx)} onMouseEnter={() => idx === 3 && setIsHovered(true)} onMouseLeave={() => idx === 3 && setIsHovered(false)}>
               <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+              {idx === 2 && <CartNum>0</CartNum>}
             </IconMenuList>
           ))}
         </IconMenuWrap>
         {/* 마이페이지 모달 */}
-        <MypageModalWrap>
+        <MypageModalWrap className={isHovered ? "menu" : ""}>
           {myPageMenu.map((item, idx) => (
             <MypageModal key={idx} onClick={() => clickMyPage(idx)}>
               {item}
