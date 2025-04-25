@@ -22,7 +22,7 @@ const HeaderMenu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px 20px;
+  padding: 30px 20px;
 `;
 const ImgWrap = styled.div`
   padding: 0 30px 0 0;

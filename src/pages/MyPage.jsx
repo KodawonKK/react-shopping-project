@@ -42,6 +42,7 @@ const MyPageInfoTop = styled.div`
 const MyPageInfoLeft = styled.div`
   display: flex;
   padding-bottom: 10px;
+  width: 100%;
 `;
 const MyInfoImg = styled.img``;
 const MyInfoGradeTxtWrap = styled.div`
@@ -66,14 +67,16 @@ const MyPageInfoRight = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  width: 100%;
 `;
 const MyPageItemWrap = styled.div`
   border: 1px solid #e7e7e7;
-  padding: 30px 30px;
+  padding: 30px 40px;
   background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 33.333%;
 `;
 const MyPageItemImgWrap = styled.div`
   padding-bottom: 5px;
@@ -166,8 +169,9 @@ const MyPage = () => {
                 고객님의 회원등급은&nbsp;<MyInfoGrade>일반회원</MyInfoGrade>입니다.
               </MyInfoGradeTxt2>
             </MyInfoGradeTxtWrap>
+            {/* <div>멤버십 확인하기</div> */}
           </MyPageInfoLeft>
-          {/* <div>멤버십 확인하기</div> */}
+
           {/* 마이페이지 주문내역/적립금/쿠폰 (오른쪽) */}
           <MyPageInfoRight>
             {myPageItems.map((item, idx) => (
