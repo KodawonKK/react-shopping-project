@@ -1,74 +1,203 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/layout/Footer";
 
 const MyPageWrap = styled.div`
-  padding: 80px 20px 0;
+  padding: 100px 0px 0;
 `;
 const MyPageTitle = styled.h1`
   text-align: center;
+  font-size: 40px;
+  font-weight: 300;
 `;
 const PageMenuWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
+  padding: 40px 20px 20px;
+  max-width: 1240px;
+  margin: 0 auto 50px;
 `;
 const PageMenuList = styled.div`
-  /* border: 3px solid; */
+  color: #a0a0a0;
+  font-size: 17px;
+  font-weight: 300;
+  cursor: pointer;
+  &.hover {
+    color: #000;
+  }
 `;
 const MyPageInfoWrap = styled.div`
   display: flex;
+  flex-direction: column;
   background: #f8f8f8;
+  padding: 50px 40px;
+  max-width: 1240px;
+  width: 90%;
+  margin: 0 auto;
 `;
-const MyPageInfoLeft = styled.div``;
-const MyInfoImg = styled.img``;
-const MyInfoGrade = styled.div``;
-const MyPageInfoRight = styled.div``;
-const MyPageInfoBottom = styled.div``;
-const DeliveryStatus = styled.div`
-  background: #f1f1f1;
+const MyPageInfoTop = styled.div`
   display: flex;
+  align-items: center;
+`;
+const MyPageInfoLeft = styled.div`
+  display: flex;
+  padding-bottom: 10px;
+`;
+const MyInfoImg = styled.img``;
+const MyInfoGradeTxtWrap = styled.div`
+  padding: 0 10px;
+`;
+const MyInfoGradeTxt = styled.div`
+  display: flex;
+  font-size: 25px;
+  font-weight: 300;
+`;
+const MyInfoGradeTxt2 = styled.div`
+  display: flex;
+  font-size: 18px;
+`;
+const MyInfoGrade = styled.h3`
+  font-size: 18px;
+`;
+const MyInfoGradeName = styled.h3`
+  font-size: 25px;
+`;
+const MyPageInfoRight = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+`;
+const MyPageItemWrap = styled.div`
+  border: 1px solid #e7e7e7;
+  padding: 30px 30px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const MyPageItemImgWrap = styled.div`
+  padding-bottom: 5px;
+  width: 35px;
+  height: 35px;
+`;
+const MyPageItemImg = styled.img`
+  &.coupon {
+    padding: 7px 0 7px;
+  }
+`;
+const MyPageItemTitle = styled.div`
+  font-size: 15px;
+  font-weight: 300;
+`;
+const MyPageInfoBottom = styled.div`
+  /* border: 3px solid red; */
+  padding: 30px 0;
+`;
+const DeliveryStatus = styled.div`
+  display: flex;
+  justify-content: center;
+  background: #f1f1f1;
+  padding: 30px 0;
 `;
 const DeliveryStatusList = styled.div`
   background: #f1f1f1;
 `;
-const CurrentOrderInfoWrap = styled.div``;
-const CurrentOrderInfoTitle = styled.h3``;
+const CurrentOrderInfoWrap = styled.div`
+  padding-top: 50px;
+  max-width: 1240px;
+  width: 90%;
+  margin: 0 auto;
+`;
+const CurrentOrderInfoTitle = styled.h3`
+  font-size: 23px;
+  font-weight: 300;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+`;
+const CurrentOrderInfo = styled.div`
+  text-align: center;
+  padding: 50px 0;
+  color: #909090;
+  font-size: 14px;
+`;
 
 const MyPage = () => {
-  "";
+  const [isHover, setHover] = useState(false);
+  const [isMenu, setMenu] = useState("");
   const myPageMenu = ["주문조회", "쿠폰", "예치금", "회원정보 수정", "관심상품", "나의 문의"];
-  const myInfo = [
-    { title: "주문내역", kindNum: `${0}개` },
-    { title: "사용가능 적립금", kindNum: `${0}원` },
-    { title: "쿠폰", kindNum: `${0}개` }
+  const myPageItems = [
+    { title: "주문내역", count: 3, icon: "mypage_cart", unit: "개" },
+    { title: "적립금", count: 12000, icon: "mypage_deposit", unit: "원" },
+    { title: "쿠폰", count: 2, icon: "mypage_coupon", unit: "개" }
   ];
   const deliveryList = ["결제 전", "상품준비중", "배송중", "배송완료"];
+
   return (
     <MyPageWrap>
       <MyPageTitle>MY PAGE</MyPageTitle>
       <PageMenuWrap>
         {myPageMenu.map((item, idx) => (
-          <PageMenuList key={idx}>{item}</PageMenuList>
+          <PageMenuList
+            key={idx}
+            onMouseEnter={() => {
+              setMenu(item);
+              setHover(true);
+            }}
+            onMouseLeave={() => {
+              setHover(false);
+            }}
+            className={isMenu === item && isHover ? "hover" : ""}
+          >
+            {item}
+          </PageMenuList>
         ))}
       </PageMenuWrap>
       <MyPageInfoWrap>
-        <MyPageInfoLeft>
-          <MyInfoImg />
-          <MyInfoGrade>안녕하세요 고다원님! 고객님의 회원등급은 일반회원입니다.</MyInfoGrade>
-          <div>멤버십 확인하기</div>
-        </MyPageInfoLeft>
-        <MyPageInfoRight></MyPageInfoRight>
+        {/* 마이페이지 상단 */}
+        <MyPageInfoTop>
+          {/* 마이페이지 프로필 등급 정보 (왼쪽) */}
+          <MyPageInfoLeft>
+            <MyInfoImg src={require("../assets/images/profile.jpg")} />
+            <MyInfoGradeTxtWrap>
+              <MyInfoGradeTxt>
+                안녕하세요&nbsp;<MyInfoGradeName>망망망</MyInfoGradeName>님!
+              </MyInfoGradeTxt>
+              <MyInfoGradeTxt2>
+                고객님의 회원등급은&nbsp;<MyInfoGrade>일반회원</MyInfoGrade>입니다.
+              </MyInfoGradeTxt2>
+            </MyInfoGradeTxtWrap>
+          </MyPageInfoLeft>
+          {/* <div>멤버십 확인하기</div> */}
+          {/* 마이페이지 주문내역/적립금/쿠폰 (오른쪽) */}
+          <MyPageInfoRight>
+            {myPageItems.map((item, idx) => (
+              <MyPageItemWrap>
+                <MyPageItemImgWrap>
+                  <MyPageItemImg src={require(`../assets/images/${item.icon}.png`)} alt={`${item.title}`} width={"100%"} className={idx === 2 && "coupon"} />
+                </MyPageItemImgWrap>
+                <MyPageItemTitle>{item.title}</MyPageItemTitle>
+                <span>
+                  {item.count}
+                  {item.unit}
+                </span>
+              </MyPageItemWrap>
+            ))}
+          </MyPageInfoRight>
+        </MyPageInfoTop>
+        {/* 마이페이지 하단 */}
+        <MyPageInfoBottom>
+          {/* 주문 진행 현황 */}
+          <DeliveryStatus>
+            {deliveryList.map((item, idx) => (
+              <DeliveryStatusList key={idx}>{item} 0 &gt;</DeliveryStatusList>
+            ))}
+          </DeliveryStatus>
+        </MyPageInfoBottom>
       </MyPageInfoWrap>
-      <MyPageInfoBottom>
-        <DeliveryStatus>
-          {deliveryList.map((item, idx) => (
-            <DeliveryStatusList>{item} 0 &gt;</DeliveryStatusList>
-          ))}
-        </DeliveryStatus>
-      </MyPageInfoBottom>
+
       <CurrentOrderInfoWrap>
         <CurrentOrderInfoTitle>최근 주문 정보</CurrentOrderInfoTitle>
+        <CurrentOrderInfo>주문 내역이 없습니다.</CurrentOrderInfo>
       </CurrentOrderInfoWrap>
       <Footer />
     </MyPageWrap>
