@@ -5,7 +5,7 @@ import styled from "styled-components";
 const PageMenuWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 40px 20px 20px;
+  padding: 40px 20px 0px;
   max-width: 1240px;
   margin: 0 auto 50px;
 `;

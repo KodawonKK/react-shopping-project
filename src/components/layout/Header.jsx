@@ -33,7 +33,7 @@ const MenuWrap = styled.div`
   width: 100%;
 `;
 const MenuList = styled.div`
-  font-size: 17px;
+  /* font-size: 17px; */
   /* font-weight: 700; */
   cursor: pointer;
   padding: 0 20px;
