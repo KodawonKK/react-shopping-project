@@ -93,6 +93,8 @@ const Header = ({ setAuthenticate }) => {
   const clickMenu = (idx) => {
     if (idx === 3) {
       navigate("/mypage");
+    } else if (idx === 0) {
+      navigate("/like");
     }
   };
   const clickMyPage = (idx) => {

@@ -1,30 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import MyPageHeader from "../components/common/MyPageHeader";
 import Footer from "../components/layout/Footer";
 
 const MyPageWrap = styled.div`
-  padding: 100px 0px 0;
+  padding: 150px 0px 0;
 `;
 const MyPageTitle = styled.h1`
   text-align: center;
   font-size: 40px;
   font-weight: 300;
-`;
-const PageMenuWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 40px 20px 20px;
-  max-width: 1240px;
-  margin: 0 auto 50px;
-`;
-const PageMenuList = styled.div`
-  color: #a0a0a0;
-  font-size: 17px;
-  font-weight: 300;
-  cursor: pointer;
-  &.hover {
-    color: #000;
-  }
 `;
 const MyPageInfoWrap = styled.div`
   display: flex;
@@ -125,9 +110,6 @@ const CurrentOrderInfo = styled.div`
 `;
 
 const MyPage = () => {
-  const [isHover, setHover] = useState(false);
-  const [isMenu, setMenu] = useState("");
-  const myPageMenu = ["주문조회", "쿠폰", "예치금", "회원정보 수정", "관심상품", "나의 문의"];
   const myPageItems = [
     { title: "주문내역", count: 3, icon: "mypage_cart", unit: "개" },
     { title: "적립금", count: 12000, icon: "mypage_deposit", unit: "원" },
@@ -138,23 +120,7 @@ const MyPage = () => {
   return (
     <MyPageWrap>
       <MyPageTitle>MY PAGE</MyPageTitle>
-      <PageMenuWrap>
-        {myPageMenu.map((item, idx) => (
-          <PageMenuList
-            key={idx}
-            onMouseEnter={() => {
-              setMenu(item);
-              setHover(true);
-            }}
-            onMouseLeave={() => {
-              setHover(false);
-            }}
-            className={isMenu === item && isHover ? "hover" : ""}
-          >
-            {item}
-          </PageMenuList>
-        ))}
-      </PageMenuWrap>
+      <MyPageHeader />
       <MyPageInfoWrap>
         {/* 마이페이지 상단 */}
         <MyPageInfoTop>

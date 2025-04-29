@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/layout/Header";
 import MyPage from "./pages/MyPage";
+import LikePage from "./pages/LikePage";
 
 function App() {
   const status = localStorage.getItem("login") === "true";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={status ? <MyPage /> : <Login setAuthenticate={setAuthenticate} />} />
+        <Route path="/like" element={<LikePage />} />
       </Routes>
     </>
   );
