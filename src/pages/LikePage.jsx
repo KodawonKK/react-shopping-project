@@ -15,7 +15,7 @@ const LikePageListWrap = styled.div`
 `;
 const LikePageListHeadWrap = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr 1.2fr;
   grid-template-rows: repeat(1, 50px);
   font-size: 14px;
   border-bottom: 1px solid #ddd;
@@ -41,13 +41,16 @@ const Label = styled.label`
   height: 12px;
   border: 1px solid #000;
   cursor: pointer;
+  margin: 0 auto;
 `;
 const CommonBtnWrap = styled.div`
   display: flex;
   padding-bottom: 10px;
 `;
 const LikeListBtmWrap = styled.div`
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr 1.2fr;
   padding: 24px 0;
   align-items: center;
   justify-content: space-around;
@@ -58,24 +61,32 @@ const Img = styled.img`
 const ProductInfoWrap = styled.div`
   display: flex;
   font-size: 14px;
-  flex-direction: column;
-  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
-const ProductInfoTitle = styled.div``;
+const ProductInfoTitle = styled.div`
+  padding-left: 10px;
+`;
 const ProductOption = styled.span`
   text-decoration: underline;
 `;
 const Savings = styled.div`
   color: #707070;
+  text-align: center;
+`;
+const OptionTxt = styled.div`
+  text-align: center;
 `;
 const ChoiceBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
 `;
 const ChoiceBtn = styled.button`
   background: none;
   border: 1px solid #d9d9d9;
-  padding: 6px 20px;
+  padding: 6px 6px;
   margin: 3px 0;
 `;
 const CommonBtn = styled.button`
@@ -115,17 +126,17 @@ const LikePage = () => {
           )}
         </LikePageListHeadWrap>
         <LikeListBtmWrap>
-          <CheckBox type="checkbox" id="allCheck" />
-          <Label htmlFor="allCheck" />
-          <Img src={require("../assets/images/product1.jpg")} alt="상품이미지" />
+          <CheckBox type="checkbox" id="chk1" />
+          <Label htmlFor="chk1" />
           <ProductInfoWrap>
+            <Img src={require("../assets/images/product1.jpg")} alt="상품이미지" />
             <ProductInfoTitle>브이넥 플리 자켓_MIWJKF414B</ProductInfoTitle>
-            <ProductOption>옵션변경</ProductOption>
+            {/* <ProductOption>옵션변경</ProductOption> */}
           </ProductInfoWrap>
           <Savings>600원(1%)</Savings>
-          <span>기본 배송</span>
-          <span>2500 조건</span>
-          <span>62,400</span>
+          <OptionTxt>기본 배송</OptionTxt>
+          <OptionTxt>2500</OptionTxt>
+          <OptionTxt>62,400</OptionTxt>
           <ChoiceBtnWrap>
             {choiceList.map((item, idx) => (
               <ChoiceBtn key={idx}>{item}</ChoiceBtn>
