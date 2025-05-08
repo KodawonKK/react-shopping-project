@@ -213,6 +213,14 @@ const ProductDetail = () => {
   };
   const handleLikeBtn = () => {
     setLike((prev) => !prev);
+    const likeObj = JSON.parse(localStorage.getItem("likeItemId") || "{}");
+    const updated = { ...likeObj, [id]: !isLike };
+    if (!isLike) {
+      localStorage.setItem("likeItemId", JSON.stringify(updated));
+    } else {
+      delete updated[id];
+      localStorage.setItem("likeItemId", JSON.stringify(updated));
+    }
   };
 
   let productID = productData?.name?.split("_")[1];
@@ -220,13 +228,17 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductDetail();
     getCoordiList();
-  }, []);
+    localStorage.removeItem("likeItemId");
+    console.log(localStorage);
+  }, [isLike]);
 
   return (
     <ProductDetailWrap>
       {/* 상품 상세 정보 TOP  */}
       <ProductDetailTop>
-        <ProductDetailImg>{productData?.img && <img src={require(`../assets/images/${productData?.img}.jpg`)} alt="상품" width="100%" />}</ProductDetailImg>
+        <ProductDetailImg>
+          {productData?.img && <img src={require(`../assets/images/${productData?.img}.jpg`)} alt="상품" width="100%" />}
+        </ProductDetailImg>
         {/* 사용자 선택 필수 옵션: 색상 및 사이즈 */}
         <ProductDetailInfo>
           <ProductId>{productID}</ProductId>
@@ -268,7 +280,12 @@ const ProductDetail = () => {
             {menuItems.map((item, idx) => (
               <BottomBtn className={item.type} key={idx}>
                 {item.type === "icon" ? (
-                  <FontAwesomeIcon icon={isLike ? faHeart : item.content} size="2x" onClick={() => handleLikeBtn()} style={isLike ? { color: "red" } : { color: "#000" }} />
+                  <FontAwesomeIcon
+                    icon={isLike ? faHeart : item.content}
+                    size="2x"
+                    onClick={() => handleLikeBtn()}
+                    style={isLike ? { color: "red" } : { color: "#000" }}
+                  />
                 ) : (
                   item.content
                 )}

@@ -141,9 +141,14 @@ const MyPage = () => {
           {/* 마이페이지 주문내역/적립금/쿠폰 (오른쪽) */}
           <MyPageInfoRight>
             {myPageItems.map((item, idx) => (
-              <MyPageItemWrap>
+              <MyPageItemWrap key={idx}>
                 <MyPageItemImgWrap>
-                  <MyPageItemImg src={require(`../assets/images/${item.icon}.png`)} alt={`${item.title}`} width={"100%"} className={idx === 2 && "coupon"} />
+                  <MyPageItemImg
+                    src={require(`../assets/images/${item.icon}.png`)}
+                    alt={`${item.title}`}
+                    width={"100%"}
+                    className={idx === 2 && "coupon"}
+                  />
                 </MyPageItemImgWrap>
                 <MyPageItemTitle>{item.title}</MyPageItemTitle>
                 <span>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
@@ -108,6 +108,22 @@ const LikePage = () => {
   const btmButton = ["삭제하기", "장바구니 담기", "전체상품주문", "관심상품 비우기"];
   const btnImgArr = ["first", "prev", "next", "last"];
   const choiceList = ["주문하기", "장바구니", "삭제"];
+  const [isList, setList] = useState([]);
+  const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
+  const likeListIds = Object.keys(likeList);
+
+  const getLikeProduct = async () => {
+    const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
+    const url = `http://localhost:5000/products?id=${likeListId}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    setList(json);
+  };
+
+  useEffect(() => {
+    getLikeProduct();
+    console.log(isList);
+  }, []);
 
   return (
     <LikePageWrap>
@@ -125,24 +141,32 @@ const LikePage = () => {
             )
           )}
         </LikePageListHeadWrap>
-        <LikeListBtmWrap>
-          <CheckBox type="checkbox" id="chk1" />
-          <Label htmlFor="chk1" />
-          <ProductInfoWrap>
-            <Img src={require("../assets/images/product1.jpg")} alt="상품이미지" />
-            <ProductInfoTitle>브이넥 플리 자켓_MIWJKF414B</ProductInfoTitle>
-            {/* <ProductOption>옵션변경</ProductOption> */}
-          </ProductInfoWrap>
-          <Savings>600원(1%)</Savings>
-          <OptionTxt>기본 배송</OptionTxt>
-          <OptionTxt>2500</OptionTxt>
-          <OptionTxt>62,400</OptionTxt>
-          <ChoiceBtnWrap>
-            {choiceList.map((item, idx) => (
-              <ChoiceBtn key={idx}>{item}</ChoiceBtn>
-            ))}
-          </ChoiceBtnWrap>
-        </LikeListBtmWrap>
+        {isList.length >= 0 ? (
+          isList.map((item, idx) => (
+            <LikeListBtmWrap key={idx}>
+              <CheckBox type="checkbox" id="chk1" />
+              <Label htmlFor="chk1" />
+              <ProductInfoWrap>
+                <Img src={require(`../assets/images/product${item.id}.jpg`)} alt="상품이미지" />
+                <ProductInfoTitle>{item.name}</ProductInfoTitle>
+                {/* <ProductOption>옵션변경</ProductOption> */}
+              </ProductInfoWrap>
+              <Savings>600원(1%)</Savings>
+              <OptionTxt>기본 배송</OptionTxt>
+              <OptionTxt>2500</OptionTxt>
+              <OptionTxt>{item.salePrice}</OptionTxt>
+              <ChoiceBtnWrap>
+                {choiceList.map((item, idx) => (
+                  <ChoiceBtn key={idx}>{item}</ChoiceBtn>
+                ))}
+              </ChoiceBtnWrap>
+            </LikeListBtmWrap>
+          ))
+        ) : (
+          <>
+            <div>관심상품이 없습니다</div>
+          </>
+        )}
       </LikePageListWrap>
       <CommonBtnWrap>
         {btmButton.map((item) => (
