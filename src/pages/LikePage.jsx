@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const LikePageWrap = styled.div`
   padding-top: 100px;
@@ -45,7 +46,7 @@ const Label = styled.label`
 `;
 const CommonBtnWrap = styled.div`
   display: flex;
-  padding-bottom: 10px;
+  padding: 20px 0;
 `;
 const LikeListBtmWrap = styled.div`
   /* display: flex; */
@@ -54,6 +55,13 @@ const LikeListBtmWrap = styled.div`
   padding: 24px 0;
   align-items: center;
   justify-content: space-around;
+  border-bottom: 1px solid #ddd;
+`;
+const NoneLikeList = styled.div`
+  /* border: 3px solid red; */
+  text-align: center;
+  padding: 30px 0 50px;
+  font-size: 14px;
 `;
 const Img = styled.img`
   max-width: 80px;
@@ -63,10 +71,12 @@ const ProductInfoWrap = styled.div`
   font-size: 14px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 `;
 const ProductInfoTitle = styled.div`
   padding-left: 10px;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 const ProductOption = styled.span`
   text-decoration: underline;
@@ -117,12 +127,11 @@ const LikePage = () => {
     const url = `http://localhost:5000/products?id=${likeListId}`;
     const response = await fetch(url);
     const json = await response.json();
-    setList(json);
+    setList(json.reverse());
   };
 
   useEffect(() => {
     getLikeProduct();
-    console.log(isList);
   }, []);
 
   return (
@@ -141,16 +150,18 @@ const LikePage = () => {
             )
           )}
         </LikePageListHeadWrap>
-        {isList.length >= 0 ? (
+        {isList.length > 0 ? (
           isList.map((item, idx) => (
             <LikeListBtmWrap key={idx}>
               <CheckBox type="checkbox" id="chk1" />
               <Label htmlFor="chk1" />
-              <ProductInfoWrap>
-                <Img src={require(`../assets/images/product${item.id}.jpg`)} alt="상품이미지" />
-                <ProductInfoTitle>{item.name}</ProductInfoTitle>
-                {/* <ProductOption>옵션변경</ProductOption> */}
-              </ProductInfoWrap>
+              <Link to={`/product/${item.id}`}>
+                <ProductInfoWrap>
+                  <Img src={require(`../assets/images/product${item.id}.jpg`)} alt="상품이미지" />
+                  <ProductInfoTitle>{item.name}</ProductInfoTitle>
+                  {/* <ProductOption>옵션변경</ProductOption> */}
+                </ProductInfoWrap>
+              </Link>
               <Savings>600원(1%)</Savings>
               <OptionTxt>기본 배송</OptionTxt>
               <OptionTxt>2500</OptionTxt>
@@ -164,7 +175,7 @@ const LikePage = () => {
           ))
         ) : (
           <>
-            <div>관심상품이 없습니다</div>
+            <NoneLikeList>관심상품이 없습니다</NoneLikeList>
           </>
         )}
       </LikePageListWrap>

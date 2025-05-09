@@ -172,6 +172,10 @@ const ProductDetail = () => {
   const scrollReview = useRef(null);
   const scrollQnA = useRef(null);
 
+  const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
+  const likeListIds = Object.keys(likeList);
+  console.log(likeList);
+
   const { id } = useParams();
 
   const menuItems = [
@@ -197,7 +201,6 @@ const ProductDetail = () => {
     let data = await response.json();
     setCoordiList(data);
   };
-
   // 기능 추가 이후, 하나의 함수로 리팩토링할 수 있을지 검토 예정
   const handleColorBtn = (item, idx) => {
     setColorBtn(idx);
@@ -228,7 +231,6 @@ const ProductDetail = () => {
   useEffect(() => {
     getProductDetail();
     getCoordiList();
-    localStorage.removeItem("likeItemId");
     console.log(localStorage);
   }, [isLike]);
 
