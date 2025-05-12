@@ -13,7 +13,6 @@ function App() {
   const [authenticate, setAuthenticate] = useState(status); // true 로그인이 됨 false면 로그인 안됨
   useEffect(() => {
     // console.log(status, "app");
-    // localStorage.removeItem("login");
   }, [status, authenticate]);
   // 1. 유저는 메뉴와 상품들을 볼 수 있다.
   //1-1 네비게이션 바

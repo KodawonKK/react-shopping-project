@@ -141,10 +141,10 @@ const LikePage = () => {
         <LikePageListHeadWrap>
           {productListArr.map((item, idx) =>
             item === "checkbox" ? (
-              <>
+              <React.Fragment key={`checkbox-${idx}`}>
                 <CheckBox type="checkbox" id="allCheck" />
-                <Label key={idx} htmlFor="allCheck" />
-              </>
+                <Label htmlFor="allCheck" />
+              </React.Fragment>
             ) : (
               <div key={idx}>{item}</div>
             )
@@ -152,9 +152,9 @@ const LikePage = () => {
         </LikePageListHeadWrap>
         {isList.length > 0 ? (
           isList.map((item, idx) => (
-            <LikeListBtmWrap key={idx}>
-              <CheckBox type="checkbox" id="chk1" />
-              <Label htmlFor="chk1" />
+            <LikeListBtmWrap key={item.idx}>
+              <CheckBox type="checkbox" id={`chk${idx}`} />
+              <Label htmlFor={`chk${idx}`} />
               <Link to={`/product/${item.id}`}>
                 <ProductInfoWrap>
                   <Img src={require(`../assets/images/product${item.id}.jpg`)} alt="상품이미지" />
@@ -174,9 +174,7 @@ const LikePage = () => {
             </LikeListBtmWrap>
           ))
         ) : (
-          <>
-            <NoneLikeList>관심상품이 없습니다</NoneLikeList>
-          </>
+          <NoneLikeList>관심상품이 없습니다</NoneLikeList>
         )}
       </LikePageListWrap>
       <CommonBtnWrap>

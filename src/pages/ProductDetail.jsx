@@ -10,7 +10,7 @@ import ProductList from "../components/product/ProductList";
 import ProductInfoTab from "../components/product/ProductInfoTab";
 
 const ProductDetailWrap = styled.div`
-  padding: 0 10px;
+  padding: 30px 10px;
 `;
 const ProductDetailTop = styled.div`
   padding-top: 90px;
@@ -174,9 +174,9 @@ const ProductDetail = () => {
 
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
-  console.log(likeList);
-
   const { id } = useParams();
+  const likeCheck = likeListIds.includes(`${id}`);
+  console.log(likeCheck);
 
   const menuItems = [
     { type: "icon", content: faHeartRegular },
@@ -283,10 +283,10 @@ const ProductDetail = () => {
               <BottomBtn className={item.type} key={idx}>
                 {item.type === "icon" ? (
                   <FontAwesomeIcon
-                    icon={isLike ? faHeart : item.content}
+                    icon={likeCheck ? faHeart : item.content}
                     size="2x"
                     onClick={() => handleLikeBtn()}
-                    style={isLike ? { color: "red" } : { color: "#000" }}
+                    style={likeCheck ? { color: "red" } : { color: "#000" }}
                   />
                 ) : (
                   item.content
