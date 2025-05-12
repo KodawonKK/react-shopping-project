@@ -123,10 +123,11 @@ const LikePage = () => {
   const likeListIds = Object.keys(likeList);
 
   const getLikeProduct = async () => {
-    const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
+    const likeListId = likeListIds.map((id) => `${id}`).join("&");
     const url = `http://localhost:5000/products?id=${likeListId}`;
     const response = await fetch(url);
     const json = await response.json();
+    console.log(json, likeListId);
     setList(json.reverse());
   };
 
