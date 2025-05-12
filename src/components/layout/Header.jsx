@@ -77,7 +77,7 @@ const CartNum = styled.span`
   height: 15px;
   font-size: 10px;
   text-align: center;
-  line-height: 18px;
+  line-height: 14px;
   color: #fff;
   font-weight: bold;
 `;
@@ -129,7 +129,12 @@ const Header = ({ setAuthenticate }) => {
         </MenuWrap>
         <IconMenuWrap>
           {iconMenu.map((item, idx) => (
-            <IconMenuList key={idx} onClick={() => clickMenu(idx)} onMouseEnter={() => idx === 3 && setIsHovered(true)} onMouseLeave={() => idx === 3 && setIsHovered(false)}>
+            <IconMenuList
+              key={idx}
+              onClick={() => clickMenu(idx)}
+              onMouseEnter={() => idx === 3 && setIsHovered(true)}
+              onMouseLeave={() => idx === 3 && setIsHovered(false)}
+            >
               <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
               {idx === 2 && <CartNum>0</CartNum>}
             </IconMenuList>

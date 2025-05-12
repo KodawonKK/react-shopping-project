@@ -7,13 +7,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
+const EventBannerWrap = styled.div`
+  padding-top: 95px;
+`;
 const BannerWrap = styled.div`
-  padding-top: 75px;
   cursor: pointer;
 `;
 const TextWrap = styled.div`
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 10%;
   color: #fff;
 `;
@@ -28,7 +30,7 @@ const BtmText = styled.div`
 
 const EventBanner = () => {
   return (
-    <div>
+    <EventBannerWrap>
       <Swiper
         slidesPerView={1}
         // onSlideChange={() => console.log("slide change")}
@@ -50,7 +52,7 @@ const EventBanner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </EventBannerWrap>
   );
 };
 
