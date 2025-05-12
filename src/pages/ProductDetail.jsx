@@ -172,11 +172,11 @@ const ProductDetail = () => {
   const scrollReview = useRef(null);
   const scrollQnA = useRef(null);
 
+  const loginCheck = JSON.parse(localStorage.getItem("login"));
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
   const { id } = useParams();
-  const likeCheck = likeListIds.includes(`${id}`);
-  console.log(likeCheck);
+  const likeCheck = loginCheck && likeListIds.includes(`${id}`);
 
   const menuItems = [
     { type: "icon", content: faHeartRegular },

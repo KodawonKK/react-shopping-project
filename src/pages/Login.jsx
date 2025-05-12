@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const LoginWrap = styled.div`
-  padding: 100px 0 80px;
+  padding: 130px 0 80px;
   text-align: center;
 `;
 const LoginTitle = styled.h1`
