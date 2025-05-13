@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
 import Footer from "../components/layout/Footer";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LikePageWrap = styled.div`
   padding-top: 100px;
@@ -119,17 +119,32 @@ const LikePage = () => {
   const btmButton = ["삭제하기", "장바구니 담기", "전체상품주문", "관심상품 비우기"];
   const btnImgArr = ["first", "prev", "next", "last"];
   const choiceList = ["주문하기", "장바구니", "삭제"];
-  const [isList, setList] = useState([]);
-  const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
-  const likeListIds = Object.keys(likeList);
+  const [likeList, setLikeList] = useState({}); // 좋아요한 게시물의 정보
 
+  const navigate = useNavigate();
+  // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
+    const likeListStorage = JSON.parse(localStorage.getItem("likeItemId") || "{}"); // localstorage의 객체배열
+    const likeListIds = Object.keys(likeListStorage);
     const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
     if (likeListId !== "") {
       const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
-      setList(json.reverse());
+      setLikeList(json.reverse());
+      console.log(likeList);
+    } else {
+      setLikeList([]); // 아무것도 없으면 빈 배열로 초기화
+    }
+  };
+  const deleteLikeProduct = (idx) => {
+    if (idx === 3) {
+      const confirmed = window.confirm("관심 상품을 삭제하시겠습니까?");
+      if (!confirmed) return;
+
+      localStorage.removeItem("likeItemId");
+      getLikeProduct();
+      alert("삭제되었습니다.");
     }
   };
 
@@ -153,8 +168,8 @@ const LikePage = () => {
             )
           )}
         </LikePageListHeadWrap>
-        {isList.length > 0 ? (
-          isList.map((item, idx) => (
+        {likeList.length > 0 ? (
+          likeList.map((item, idx) => (
             <LikeListBtmWrap key={item.idx}>
               <CheckBox type="checkbox" id={`chk${idx}`} />
               <Label htmlFor={`chk${idx}`} />
@@ -181,8 +196,10 @@ const LikePage = () => {
         )}
       </LikePageListWrap>
       <CommonBtnWrap>
-        {btmButton.map((item) => (
-          <CommonBtn>{item}</CommonBtn>
+        {btmButton.map((item, idx) => (
+          <CommonBtn key={idx} onClick={() => deleteLikeProduct(idx)}>
+            {item}
+          </CommonBtn>
         ))}
       </CommonBtnWrap>
       <PaginationWrap>
