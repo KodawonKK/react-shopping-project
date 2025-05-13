@@ -98,6 +98,7 @@ const ChoiceBtn = styled.button`
   border: 1px solid #d9d9d9;
   padding: 6px 6px;
   margin: 3px 0;
+  cursor: pointer;
 `;
 const CommonBtn = styled.button`
   background: none;
@@ -128,7 +129,6 @@ const LikePage = () => {
       const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
-      console.log(json, likeListId, url);
       setList(json.reverse());
     }
   };

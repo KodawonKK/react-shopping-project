@@ -37,6 +37,9 @@ const MenuList = styled.div`
   /* font-weight: 700; */
   cursor: pointer;
   padding: 0 20px;
+  &:hover {
+    color: #e5477f;
+  }
 `;
 const IconMenuWrap = styled.div`
   display: flex;
@@ -84,7 +87,7 @@ const CartNum = styled.span`
 
 const Header = ({ setAuthenticate }) => {
   const loginStatus = localStorage.getItem("login") === "true";
-  const menu = ["세일", "뉴컬렉션", "신상품", "베스트", "전체상품", "기획전"];
+  const menu = ["베스트", "세일", "뉴컬렉션", "신상품", "전체상품", "기획전"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
   const myPageMenu = [loginStatus ? "로그아웃" : "로그인", "주문조회", "마이페이지"];
   const [isHovered, setIsHovered] = useState(false);
