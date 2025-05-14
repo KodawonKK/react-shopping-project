@@ -1,12 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LikeBtn from "./LikeBtn";
 
 const CardWrap = styled.div`
   cursor: pointer;
 `;
 const CardImgWrap = styled.div`
   position: relative;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 const CardNum = styled.span`
   position: absolute;
@@ -66,11 +70,13 @@ const Card = ({ kind, item }) => {
     navigate(`/product/${item.id}`);
   };
   return (
-    <CardWrap onClick={gotoProductDetail}>
-      <CardImgWrap>
+    <CardWrap>
+      <CardImgWrap onClick={gotoProductDetail}>
         {kind === "best" && <CardNum>{item.id}</CardNum>}
         <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="상품" width="100%" />
+        <LikeBtn />
       </CardImgWrap>
+
       <ProductName>{item.name}</ProductName>
       <PriceInfoWrap>
         <PriceWrap>

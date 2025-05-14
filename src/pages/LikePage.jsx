@@ -32,7 +32,7 @@ const CheckBox = styled.input`
   &:checked + label::after {
     content: "✔";
     display: block;
-    font-size: 12px;
+    font-size: 15px;
     color: #fff;
     line-height: 10px;
   }
@@ -207,7 +207,6 @@ const LikePage = () => {
           <img src={require(`../../src/assets/images/btn_page_${item}.png`)} alt={item} />
         ))}
       </PaginationWrap>
-      <Footer />
     </LikePageWrap>
   );
 };

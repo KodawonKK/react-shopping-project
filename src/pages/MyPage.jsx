@@ -174,7 +174,6 @@ const MyPage = () => {
         <CurrentOrderInfoTitle>최근 주문 정보</CurrentOrderInfoTitle>
         <CurrentOrderInfo>주문 내역이 없습니다.</CurrentOrderInfo>
       </CurrentOrderInfoWrap>
-      <Footer />
     </MyPageWrap>
   );
 };

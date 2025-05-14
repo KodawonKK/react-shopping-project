@@ -103,7 +103,6 @@ const Login = ({ setAuthenticate }) => {
           <SignTxt>회원가입</SignTxt>
         </SignTxtWrap>
       </LoginInputWrap>
-      <Footer />
     </LoginWrap>
   );
 };

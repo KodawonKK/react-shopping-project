@@ -29,7 +29,6 @@ const Home = () => {
       <ProductList title={"리뷰 인기템"} />
       {/* 배너 */}
       <BottomBanner />
-      <Footer />
     </div>
   );
 };
