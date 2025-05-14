@@ -32,7 +32,7 @@ function App() {
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
         <Route path="/product/:id" element={<ProductDetail authenticate={authenticate} />} />
         <Route path="/mypage" element={status ? <MyPage /> : <Login setAuthenticate={setAuthenticate} />} />
-        <Route path="/like" element={<LikePage />} />
+        <Route path="/like" element={status ? <LikePage /> : <Login setAuthenticate={setAuthenticate} />} />
       </Routes>
       <Footer />
     </>

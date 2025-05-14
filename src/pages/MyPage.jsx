@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MyPageHeader from "../components/common/MyPageHeader";
-import Footer from "../components/layout/Footer";
 
 const MyPageWrap = styled.div`
   padding: 150px 0px 0;

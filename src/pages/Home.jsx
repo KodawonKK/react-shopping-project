@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "swiper/css";
 import ProductList from "../components/product/ProductList";
-import Footer from "../components/layout/Footer";
 import BestItemList from "../components/product/BestItemList";
 import EventBanner from "../components/product/EventBanner";
 import BottomBanner from "../components/product/BottomBanner";

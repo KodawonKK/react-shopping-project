@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
-import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 

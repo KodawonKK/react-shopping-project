@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import Footer from "../components/layout/Footer";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
@@ -159,7 +158,8 @@ const ReviewImg = styled.div`
   padding: 30px 0 20px;
 `;
 
-const ProductDetail = () => {
+const ProductDetail = ({ authenticate }) => {
+  console.log(authenticate);
   const [productData, setProductData] = useState([]);
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
@@ -176,7 +176,7 @@ const ProductDetail = () => {
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
   const { id } = useParams();
-  const likeCheck = loginCheck && likeListIds.includes(`${id}`);
+  const likeCheck = authenticate && likeListIds.includes(`${id}`);
 
   const menuItems = [
     { type: "icon", content: faHeartRegular },
@@ -215,6 +215,7 @@ const ProductDetail = () => {
     if (idx === 1) scrollReview.current.scrollIntoView({ behavior: "smooth" });
   };
   const handleLikeBtn = () => {
+    if (!authenticate) return;
     setLike((prev) => !prev);
     const likeObj = JSON.parse(localStorage.getItem("likeItemId") || "{}");
     const updated = { ...likeObj, [id]: !isLike };
@@ -326,9 +327,6 @@ const ProductDetail = () => {
           <img src={require("../assets/images/review_guide.jpg")} alt="리뷰가이드" width="100%" />
         </ReviewImg>
       </ProductDetailBottom>
-
-      {/* 푸터 */}
-      <Footer />
     </ProductDetailWrap>
   );
 };
