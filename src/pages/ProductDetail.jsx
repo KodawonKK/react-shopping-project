@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
@@ -71,10 +71,8 @@ const DetailInfoWrap = styled.div`
 const RequireWrap = styled.div`
   font-size: 13px;
   padding: 10px 0;
-  /* border: 3px solid red; */
   display: flex;
   align-items: flex-start;
-  /* justify-content: space-between; */
 `;
 const Color = styled.span`
   color: #a0a0a0;
@@ -120,7 +118,6 @@ const BottomBtn = styled.button`
 `;
 const ProductGuideWrap = styled.div`
   display: flex;
-  /* border-top: 1px solid #ddd; */
   border-bottom: 1px solid #ddd;
   align-items: center;
   padding: 15px 0;
@@ -128,7 +125,6 @@ const ProductGuideWrap = styled.div`
   font-size: 14px;
   cursor: pointer;
   &:hover {
-    /* border-top: 1px solid #000; */
     border-bottom: 1px solid #000;
   }
 `;
@@ -159,7 +155,6 @@ const ReviewImg = styled.div`
 `;
 
 const ProductDetail = ({ authenticate }) => {
-  console.log(authenticate);
   const [productData, setProductData] = useState([]);
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
@@ -171,12 +166,13 @@ const ProductDetail = ({ authenticate }) => {
   const scrollDetail = useRef(null);
   const scrollReview = useRef(null);
   const scrollQnA = useRef(null);
+  const navigate = useNavigate();
 
-  const loginCheck = JSON.parse(localStorage.getItem("login"));
+  // const loginCheck = JSON.parse(localStorage.getItem("login"));
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
   const { id } = useParams();
-  const likeCheck = authenticate && likeListIds.includes(`${id}`);
+  const likeCheck = likeListIds.includes(`${id}`);
 
   const menuItems = [
     { type: "icon", content: faHeartRegular },
@@ -215,7 +211,11 @@ const ProductDetail = ({ authenticate }) => {
     if (idx === 1) scrollReview.current.scrollIntoView({ behavior: "smooth" });
   };
   const handleLikeBtn = () => {
-    if (!authenticate) return;
+    if (!authenticate) {
+      alert("로그인 후 관심상품을 이용 하실 수 있습니다.");
+      navigate("/login");
+      return;
+    }
     setLike((prev) => !prev);
     const likeObj = JSON.parse(localStorage.getItem("likeItemId") || "{}");
     const updated = { ...likeObj, [id]: !isLike };
@@ -232,7 +232,6 @@ const ProductDetail = ({ authenticate }) => {
   useEffect(() => {
     getProductDetail();
     getCoordiList();
-    console.log(localStorage);
   }, [isLike]);
 
   return (
