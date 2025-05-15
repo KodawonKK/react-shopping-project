@@ -22,7 +22,7 @@ const HeaderMenu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 30px 20px;
+  padding: 20px 20px;
 `;
 const ImgWrap = styled.div`
   padding: 0 30px 0 0;
@@ -33,8 +33,6 @@ const MenuWrap = styled.div`
   width: 100%;
 `;
 const MenuList = styled.div`
-  /* font-size: 17px; */
-  /* font-weight: 700; */
   cursor: pointer;
   padding: 0 20px;
   &:hover {
@@ -45,19 +43,21 @@ const IconMenuWrap = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-around;
-  /* width: 15%; */
 `;
 const IconMenuList = styled.div`
   position: relative;
   width: 27px;
-  padding-right: 20px;
+  padding: 5px 20px 5px 0;
   cursor: pointer;
+  &.mypage {
+    position: initial;
+  }
 `;
 const MypageModalWrap = styled.div`
   position: absolute;
   right: 30px;
   bottom: -30px;
-  display: none;
+  display: flex;
   padding: 15px 10px;
   font-size: 13px;
   border: 1px solid #cbcbcb;
@@ -131,26 +131,35 @@ const Header = ({ setAuthenticate }) => {
           ))}
         </MenuWrap>
         <IconMenuWrap>
-          {iconMenu.map((item, idx) => (
-            <IconMenuList
-              key={idx}
-              onClick={() => clickMenu(idx)}
-              onMouseEnter={() => idx === 3 && setIsHovered(true)}
-              onMouseLeave={() => idx === 3 && setIsHovered(false)}
-            >
-              <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-              {idx === 2 && <CartNum>0</CartNum>}
-            </IconMenuList>
-          ))}
+          {iconMenu.map((item, idx) =>
+            idx !== 3 ? (
+              <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
+                <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                {idx === 2 && <CartNum>0</CartNum>}
+              </IconMenuList>
+            ) : (
+              <IconMenuList
+                key={idx}
+                onClick={() => clickMenu(idx)}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="mypage"
+              >
+                <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                {/* 마이페이지 모달 */}
+                {isHovered && (
+                  <MypageModalWrap>
+                    {myPageMenu.map((item, idx) => (
+                      <MypageModal key={idx} onClick={() => clickMyPage(idx)}>
+                        {item}
+                      </MypageModal>
+                    ))}
+                  </MypageModalWrap>
+                )}
+              </IconMenuList>
+            )
+          )}
         </IconMenuWrap>
-        {/* 마이페이지 모달 */}
-        <MypageModalWrap className={isHovered ? "menu" : ""}>
-          {myPageMenu.map((item, idx) => (
-            <MypageModal key={idx} onClick={() => clickMyPage(idx)}>
-              {item}
-            </MypageModal>
-          ))}
-        </MypageModalWrap>
       </HeaderMenu>
     </HeaderWrap>
   );
