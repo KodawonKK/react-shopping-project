@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
 const EventBannerWrap = styled.div`
-  padding-top: 95px;
+  padding-top: 87px;
 `;
 const BannerWrap = styled.div`
   cursor: pointer;

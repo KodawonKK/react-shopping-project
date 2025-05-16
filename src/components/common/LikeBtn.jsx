@@ -1,8 +1,9 @@
-import React from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const LikeBtnWrap = styled(FontAwesomeIcon)`
   color: #757575;
@@ -14,13 +15,31 @@ const LikeBtnWrap = styled(FontAwesomeIcon)`
   z-index: 99;
 `;
 
+// const handleLikeBtn = () => {
+//    if (!authenticate) {
+//       alert("로그인 후 관심상품을 이용 하실 수 있습니다.");
+//       navigate("/login");
+//       return;
+//     }
+//     setLike((prev) => !prev);
+//     const updated = { ...likeList, [id]: !isLike };
+//     if (!isLike) {
+//       localStorage.setItem("likeItemId", JSON.stringify(updated));
+//     } else {
+//       delete updated[id];
+//       localStorage.setItem("likeItemId", JSON.stringify(updated));
+//     }
+// }
+
 const LikeBtn = () => {
+  const { authenticate, setAuthenticate } = useContext(AuthContext);
+
   return (
     <LikeBtnWrap
       icon={faHeartRegular}
       onClick={(e) => {
         e.stopPropagation();
-        console.log("하하");
+        console.log(authenticate);
       }}
     />
   );
