@@ -66,9 +66,11 @@ const ColorBox = styled.span`
 
 const Card = ({ kind, item }) => {
   const navigate = useNavigate();
+
   const gotoProductDetail = () => {
     navigate(`/product/${item.id}`);
   };
+
   return (
     <CardWrap>
       <CardImgWrap onClick={gotoProductDetail}>

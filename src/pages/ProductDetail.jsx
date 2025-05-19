@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ProductList from "../components/product/ProductList";
 import ProductInfoTab from "../components/product/ProductInfoTab";
-
+import { AuthContext } from "../contexts/AuthContext";
 const ProductDetailWrap = styled.div`
   padding: 30px 10px;
 `;
@@ -154,7 +154,7 @@ const ReviewImg = styled.div`
   padding: 30px 0 20px;
 `;
 
-const ProductDetail = ({ authenticate }) => {
+const ProductDetail = ({ setLikeList }) => {
   const [productData, setProductData] = useState([]);
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
@@ -168,11 +168,14 @@ const ProductDetail = ({ authenticate }) => {
   const scrollQnA = useRef(null);
   const navigate = useNavigate();
 
-  // const loginCheck = JSON.parse(localStorage.getItem("login"));
+  const { id } = useParams();
+  const { authenticate } = useContext(AuthContext);
+
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
-  const { id } = useParams();
-  const likeCheck = likeListIds.includes(`${id}`);
+  const likeCheck = authenticate && likeListIds.includes(`${id}`);
+
+  let productID = productData?.name?.split("_")[1];
 
   const menuItems = [
     { type: "icon", content: faHeartRegular },
@@ -217,22 +220,21 @@ const ProductDetail = ({ authenticate }) => {
       return;
     }
     setLike((prev) => !prev);
-    const likeObj = JSON.parse(localStorage.getItem("likeItemId") || "{}");
-    const updated = { ...likeObj, [id]: !isLike };
+    const updated = { ...likeList, [id]: !isLike };
     if (!isLike) {
       localStorage.setItem("likeItemId", JSON.stringify(updated));
+      setLikeList(updated);
     } else {
       delete updated[id];
       localStorage.setItem("likeItemId", JSON.stringify(updated));
+      setLikeList(updated);
     }
   };
-
-  let productID = productData?.name?.split("_")[1];
 
   useEffect(() => {
     getProductDetail();
     getCoordiList();
-  }, [isLike]);
+  }, [isLike, authenticate]);
 
   return (
     <ProductDetailWrap>

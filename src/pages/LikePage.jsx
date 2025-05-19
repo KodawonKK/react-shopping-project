@@ -120,7 +120,6 @@ const LikePage = () => {
   const choiceList = ["주문하기", "장바구니", "삭제"];
   const [likeList, setLikeList] = useState({}); // 좋아요한 게시물의 정보
 
-  const navigate = useNavigate();
   // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
     const likeListStorage = JSON.parse(localStorage.getItem("likeItemId") || "{}"); // localstorage의 객체배열
@@ -131,7 +130,6 @@ const LikePage = () => {
       const response = await fetch(url);
       const json = await response.json();
       setLikeList(json.reverse());
-      console.log(likeList);
     } else {
       setLikeList([]); // 아무것도 없으면 빈 배열로 초기화
     }

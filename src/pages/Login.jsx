@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const LoginWrap = styled.div`
   padding: 130px 0 80px;
@@ -50,11 +51,12 @@ const SignTxt = styled.div`
   cursor: pointer;
 `;
 
-const Login = ({ setAuthenticate }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPwd, setUserPwd] = useState("");
   const status = localStorage.getItem("login");
+  const { authenticate, setAuthenticate } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -87,7 +89,8 @@ const Login = ({ setAuthenticate }) => {
   };
   useEffect(() => {
     console.log(status, "status1");
-  }, [status]);
+    console.log(authenticate, "status2");
+  }, [status, authenticate]);
 
   return (
     <LoginWrap>

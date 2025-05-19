@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/AuthContext";
+import { LikeContext } from "../../contexts/LikeContext";
 
 const LikeBtnWrap = styled(FontAwesomeIcon)`
   color: #757575;
@@ -32,14 +33,15 @@ const LikeBtnWrap = styled(FontAwesomeIcon)`
 // }
 
 const LikeBtn = () => {
-  const { authenticate, setAuthenticate } = useContext(AuthContext);
+  // const { value } = useContext(AuthContext);
+  const { isLikeList } = useContext(LikeContext);
 
   return (
     <LikeBtnWrap
       icon={faHeartRegular}
       onClick={(e) => {
         e.stopPropagation();
-        console.log(authenticate);
+        console.log(isLikeList, " 클릭");
       }}
     />
   );

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -85,13 +86,14 @@ const CartNum = styled.span`
   font-weight: bold;
 `;
 
-const Header = ({ setAuthenticate }) => {
+const Header = () => {
   const loginStatus = localStorage.getItem("login") === "true";
   const menu = ["베스트", "세일", "뉴컬렉션", "신상품", "전체상품", "기획전"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
   const myPageMenu = [loginStatus ? "로그아웃" : "로그인", "주문조회", "마이페이지"];
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const { authenticate, setAuthenticate } = useContext(AuthContext);
 
   const clickMenu = (idx) => {
     if (idx === 3) {
@@ -101,20 +103,27 @@ const Header = ({ setAuthenticate }) => {
     }
   };
   const clickMyPage = (idx) => {
-    navigate("/mypage");
+    console.log(idx);
     if (idx === 0) {
+      console.log(loginStatus);
       if (loginStatus) {
         //로그아웃을 눌렀을 때
         localStorage.removeItem("login");
         setAuthenticate(false);
         navigate("/");
       } else {
+        console.log("오 ㅐ 동작 안하냐고 시발라라랄라라");
         navigate("/login");
+        console.log("실행 테스트");
       }
     } else {
       navigate("/mypage");
     }
   };
+
+  useEffect(() => {
+    console.log(authenticate);
+  }, [authenticate]);
 
   return (
     <HeaderWrap className="header">
