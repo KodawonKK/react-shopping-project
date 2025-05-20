@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { LikeContext } from "../contexts/LikeContext";
 
 const LikePageWrap = styled.div`
   padding-top: 100px;
@@ -118,12 +119,13 @@ const LikePage = () => {
   const btmButton = ["삭제하기", "장바구니 담기", "전체상품주문", "관심상품 비우기"];
   const btnImgArr = ["first", "prev", "next", "last"];
   const choiceList = ["주문하기", "장바구니", "삭제"];
-  const [likeList, setLikeList] = useState({}); // 좋아요한 게시물의 정보
+  // const [likeList, setLikeList] = useState({}); // 좋아요한 게시물의 정보
+  const { isLikeList, setLikeList } = useContext(LikeContext);
 
   // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
-    const likeListStorage = JSON.parse(localStorage.getItem("likeItemId") || "{}"); // localstorage의 객체배열
-    const likeListIds = Object.keys(likeListStorage);
+    console.log(isLikeList);
+    const likeListIds = Object.keys(isLikeList || {});
     const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
     if (likeListId !== "") {
       const url = `http://localhost:5000/products?${likeListId}`;
@@ -165,8 +167,8 @@ const LikePage = () => {
             )
           )}
         </LikePageListHeadWrap>
-        {likeList.length > 0 ? (
-          likeList.map((item, idx) => (
+        {isLikeList?.length > 0 ? (
+          isLikeList.map((item, idx) => (
             <LikeListBtmWrap key={item.idx}>
               <CheckBox type="checkbox" id={`chk${idx}`} />
               <Label htmlFor={`chk${idx}`} />

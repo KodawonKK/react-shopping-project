@@ -1,4 +1,5 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
@@ -16,32 +17,41 @@ const LikeBtnWrap = styled(FontAwesomeIcon)`
   z-index: 99;
 `;
 
-// const handleLikeBtn = () => {
-//    if (!authenticate) {
-//       alert("로그인 후 관심상품을 이용 하실 수 있습니다.");
-//       navigate("/login");
-//       return;
-//     }
-//     setLike((prev) => !prev);
-//     const updated = { ...likeList, [id]: !isLike };
-//     if (!isLike) {
-//       localStorage.setItem("likeItemId", JSON.stringify(updated));
-//     } else {
-//       delete updated[id];
-//       localStorage.setItem("likeItemId", JSON.stringify(updated));
-//     }
-// }
+const LikeBtn = ({ id }) => {
+  const [isLike, setLike] = useState(false);
+  const { authenticate } = useContext(AuthContext);
+  const { isLikeList, setLikeList } = useContext(LikeContext);
+  const likeListIds = Object.keys(isLikeList || {});
+  const likeCheck = authenticate && likeListIds.includes(`${id}`);
+  const navigate = useNavigate();
 
-const LikeBtn = () => {
-  // const { value } = useContext(AuthContext);
-  const { isLikeList } = useContext(LikeContext);
+  const handleLikeBtn = () => {
+    if (!authenticate) {
+      alert("로그인 후 관심상품을 이용 하실 수 있습니다.");
+      navigate("/login");
+      return;
+    }
+    setLike((prev) => !prev);
+    const updated = { ...isLikeList, [id]: !isLike };
+    if (!isLike) {
+      localStorage.setItem("likeItemId", JSON.stringify(updated));
+      setLikeList(updated);
+    } else {
+      delete updated[id];
+      localStorage.setItem("likeItemId", JSON.stringify(updated));
+      setLikeList(updated);
+    }
+  };
+
+  // useEffect(() => {}, [isLikeList]);
 
   return (
     <LikeBtnWrap
-      icon={faHeartRegular}
+      icon={likeCheck ? faHeart : faHeartRegular}
+      style={likeCheck ? { color: "red" } : { color: "#757575" }}
       onClick={(e) => {
         e.stopPropagation();
-        console.log(isLikeList, " 클릭");
+        handleLikeBtn();
       }}
     />
   );
