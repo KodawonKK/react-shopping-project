@@ -103,7 +103,6 @@ const Header = () => {
     }
   };
   const clickMyPage = (idx) => {
-    console.log(idx);
     if (idx === 0) {
       console.log(loginStatus);
       if (loginStatus) {
@@ -112,9 +111,7 @@ const Header = () => {
         setAuthenticate(false);
         navigate("/");
       } else {
-        console.log("오 ㅐ 동작 안하냐고 시발라라랄라라");
         navigate("/login");
-        console.log("실행 테스트");
       }
     } else {
       navigate("/mypage");
