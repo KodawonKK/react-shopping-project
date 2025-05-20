@@ -118,9 +118,9 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(authenticate);
-  }, [authenticate]);
+  // useEffect(() => {
+  //   console.log(authenticate);
+  // }, [authenticate]);
 
   return (
     <HeaderWrap className="header">

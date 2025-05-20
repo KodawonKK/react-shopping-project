@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../contexts/AuthContext";
+import { LikeContext } from "../contexts/LikeContext";
 import ProductList from "../components/product/ProductList";
 import ProductInfoTab from "../components/product/ProductInfoTab";
-import { AuthContext } from "../contexts/AuthContext";
+
 const ProductDetailWrap = styled.div`
   padding: 30px 10px;
 `;
@@ -154,7 +156,7 @@ const ReviewImg = styled.div`
   padding: 30px 0 20px;
 `;
 
-const ProductDetail = ({ setLikeList }) => {
+const ProductDetail = () => {
   const [productData, setProductData] = useState([]);
   const [coordiList, setCoordiList] = useState([]);
   const [colorBtn, setColorBtn] = useState(null);
@@ -170,6 +172,7 @@ const ProductDetail = ({ setLikeList }) => {
 
   const { id } = useParams();
   const { authenticate } = useContext(AuthContext);
+  const { isLikeList, setLikeList } = useContext(LikeContext);
 
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
@@ -234,7 +237,7 @@ const ProductDetail = ({ setLikeList }) => {
   useEffect(() => {
     getProductDetail();
     getCoordiList();
-  }, [isLike, authenticate]);
+  }, [isLike, authenticate, isLikeList]);
 
   return (
     <ProductDetailWrap>
