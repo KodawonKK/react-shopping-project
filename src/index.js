@@ -8,13 +8,13 @@ import { BrowserRouter } from "react-router";
 import { LikeProvider } from "./contexts/LikeContext";
 
 const status = localStorage.getItem("login") === "true";
-const likeList = JSON.parse(localStorage.getItem("likeItemId"));
+const likeList = JSON.parse(localStorage.getItem("likeItemId")) || {};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AuthProvider initialStatus={status}>
-      <LikeProvider initialList={likeList}>
+      <LikeProvider>
         <App />
       </LikeProvider>
     </AuthProvider>

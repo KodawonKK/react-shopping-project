@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +21,7 @@ const LikeBtn = ({ id }) => {
   const [isLike, setLike] = useState(false);
   const { authenticate } = useContext(AuthContext);
   const { isLikeList, setLikeList } = useContext(LikeContext);
-  const likeListIds = Object.keys(isLikeList || {});
+  const likeListIds = Object.keys(isLikeList);
   const likeCheck = authenticate && likeListIds.includes(`${id}`);
   const navigate = useNavigate();
 
@@ -43,7 +43,9 @@ const LikeBtn = ({ id }) => {
     }
   };
 
-  // useEffect(() => {}, [isLikeList]);
+  useEffect(() => {
+    console.log(isLikeList, isLike, likeCheck);
+  }, [isLikeList]);
 
   return (
     <LikeBtnWrap
@@ -51,7 +53,7 @@ const LikeBtn = ({ id }) => {
       style={likeCheck ? { color: "red" } : { color: "#757575" }}
       onClick={(e) => {
         e.stopPropagation();
-        handleLikeBtn();
+        // handleLikeBtn();
       }}
     />
   );

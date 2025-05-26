@@ -8,6 +8,7 @@ import MyPageIcon from "../../assets/icon/mypage.svg";
 import SearchIcon from "../../assets/icon/search.svg";
 import WishIcon from "../../assets/icon/wish.svg";
 import CartIcon from "../../assets/icon/cart.svg";
+import Search from "../common/Search";
 
 const HeaderWrap = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ const HeaderWrap = styled.div`
   background: #fff;
   z-index: 9999;
   box-sizing: border-box;
-  border-bottom: 1px solid #e6e5e7;
+  /* border-bottom: 1px solid #e6e5e7; */
 `;
 const HeaderMenu = styled.div`
   max-width: 1720px;
@@ -24,6 +25,7 @@ const HeaderMenu = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 20px 20px;
+  border-bottom: 1px solid #ddd;
 `;
 const ImgWrap = styled.div`
   padding: 0 30px 0 0;
@@ -92,6 +94,7 @@ const Header = () => {
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
   const myPageMenu = [loginStatus ? "로그아웃" : "로그인", "주문조회", "마이페이지"];
   const [isHovered, setIsHovered] = useState(false);
+  const [isClose, setClose] = useState(false);
   const navigate = useNavigate();
   const { authenticate, setAuthenticate } = useContext(AuthContext);
 
@@ -100,6 +103,8 @@ const Header = () => {
       navigate("/mypage");
     } else if (idx === 0) {
       navigate("/like");
+    } else if (idx === 1) {
+      setClose(true);
     }
   };
   const clickMyPage = (idx) => {
@@ -116,6 +121,10 @@ const Header = () => {
     } else {
       navigate("/mypage");
     }
+  };
+  const closeSearch = () => {
+    console.log("하이");
+    console.log(isClose);
   };
 
   // useEffect(() => {
@@ -167,6 +176,7 @@ const Header = () => {
           )}
         </IconMenuWrap>
       </HeaderMenu>
+      {isClose && <Search closeSearch={closeSearch} setClose={setClose} />}
     </HeaderWrap>
   );
 };
