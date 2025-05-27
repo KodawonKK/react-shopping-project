@@ -10,6 +10,7 @@ import Header from "./components/layout/Header";
 import MyPage from "./pages/MyPage";
 import LikePage from "./pages/LikePage";
 import Footer from "./components/layout/Footer";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const { authenticate } = useContext(AuthContext);
@@ -23,6 +24,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={authenticate ? <MyPage /> : <Login />} />
         <Route path="/like" element={authenticate ? <LikePage /> : <Login />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
       <Footer />
     </>

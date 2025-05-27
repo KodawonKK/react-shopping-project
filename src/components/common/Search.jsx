@@ -7,6 +7,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import { useNavigate } from "react-router-dom";
 
 const SearchBoxWrap = styled.div`
   padding: 20px 50px;
@@ -56,7 +57,8 @@ const BestSearchTerm = styled.div`
   font-size: 17px;
 `;
 const BestSearchRanking = styled.div`
-  padding: 5px 10px;
+  margin: 5px 10px;
+  cursor: pointer;
 `;
 const RecommendProductWrap = styled.div`
   width: 100%;
@@ -70,8 +72,9 @@ const RecommendProductList = styled.div`
 `;
 
 const Search = ({ setClose }) => {
-  const SearchTerm = ["블라우스", "가디건", "나시", "데님"];
+  const SearchTerm = ["블라우스", "가디건", "나시", "데님", "셔츠", "자켓"];
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const getProduct = async () => {
     let url = `http://localhost:5000/coordiItem/`;
@@ -81,6 +84,13 @@ const Search = ({ setClose }) => {
   };
   const closeSearch = () => {
     setClose(false);
+  };
+  const search = (e) => {
+    if (e.key === "Enter") {
+      let keyword = e.target.value;
+      navigate(`/search?q=${keyword}`);
+      setClose(false);
+    }
   };
 
   useEffect(() => {
@@ -96,13 +106,13 @@ const Search = ({ setClose }) => {
         <SearchImgWrap>
           <img src={SearchIcon} width={"100%"} alt="오른쪽 상단 아이콘" />
         </SearchImgWrap>
-        <SearchInput size={10} maxlength={30} />
+        <SearchInput size={10} maxLength={30} onKeyDown={search} />
       </SearchWrap>
       <SearchBtmWrap>
         <BestSearchWrap>
           <BestSearchTerm>인기 검색어</BestSearchTerm>
           {SearchTerm.map((item, idx) => (
-            <BestSearchRanking>
+            <BestSearchRanking key={idx}>
               {idx + 1} {item}
             </BestSearchRanking>
           ))}
