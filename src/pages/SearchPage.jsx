@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchIcon from "../assets/icon/search.svg";
 import Card from "../components/common/Card";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const SearchPageWrap = styled.div``;
 const SearchBoxWrap = styled.div`
@@ -58,15 +58,21 @@ const SearchPage = () => {
   const SearchTerm = ["블라우스", "가디건", "나시", "데님", "셔츠", "자켓"];
   const [data, setData] = useState([]);
   const [query, setQuery] = useSearchParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const getProduct = async () => {
     let searchQuery = query.get("q") || "";
-    console.log(searchQuery);
     let url = `http://localhost:5000/products?q=${searchQuery}`;
     let response = await fetch(url);
     let json = await response.json();
     setData(json);
+  };
+
+  const search = (e) => {
+    if (e.key === "Enter") {
+      let keyword = e.target.value;
+      navigate(`/search?q=${keyword}`);
+    }
   };
 
   useEffect(() => {
@@ -81,11 +87,7 @@ const SearchPage = () => {
           <SearchImgWrap>
             <img src={SearchIcon} width={"100%"} alt="오른쪽 상단 아이콘" />
           </SearchImgWrap>
-          <SearchInput
-            size={10}
-            maxLength={30}
-            // onKeyDown={search}
-          />
+          <SearchInput size={10} maxLength={30} onKeyDown={search} />
         </SearchWrap>
         {SearchTerm.map((item, idx) => (
           <SearchTermBtn key={idx}>#{item}</SearchTermBtn>
