@@ -29,17 +29,27 @@ const HeaderMenu = styled.div`
 `;
 const ImgWrap = styled.div`
   padding: 0 30px 0 0;
+  @media (max-width: 900px) {
+    padding: 0 10px 0 0;
+  }
 `;
 const MenuWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  @media (max-width: 900px) {
+    white-space: nowrap;
+    font-size: 15px;
+  }
 `;
 const MenuList = styled.div`
   cursor: pointer;
   padding: 0 20px;
   &:hover {
     color: #e5477f;
+  }
+  @media (max-width: 900px) {
+    padding: 0 10px;
   }
 `;
 const IconMenuWrap = styled.div`
@@ -54,6 +64,9 @@ const IconMenuList = styled.div`
   cursor: pointer;
   &.mypage {
     position: initial;
+  }
+  @media (max-width: 900px) {
+    width: 17px;
   }
 `;
 const MypageModalWrap = styled.div`

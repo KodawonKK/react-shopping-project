@@ -32,6 +32,16 @@ const ProductList = ({ title, product, kind }) => {
         <Swiper
           spaceBetween={20}
           slidesPerView={4}
+          breakpoints={{
+            300: {
+              slidesPerView: 2 // 모바일
+            },
+
+            650: { slidesPerView: 3 },
+            1024: {
+              slidesPerView: 4 // PC
+            }
+          }}
           modules={[Navigation, Autoplay]}
           navigation
           autoplay={{ delay: 2000, disableOnInteraction: false }}

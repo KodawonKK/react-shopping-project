@@ -53,7 +53,7 @@ const LikeBtn = ({ id }) => {
       style={likeCheck ? { color: "red" } : { color: "#757575" }}
       onClick={(e) => {
         e.stopPropagation();
-        // handleLikeBtn();
+        handleLikeBtn();
       }}
     />
   );

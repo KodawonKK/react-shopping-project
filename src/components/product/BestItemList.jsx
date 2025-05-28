@@ -16,6 +16,15 @@ const BestList = styled.div`
   display: grid;
   gap: 15px;
   grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 760px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 360px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const BestItemList = ({ title, best }) => {

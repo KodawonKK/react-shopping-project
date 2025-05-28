@@ -9,6 +9,9 @@ import "swiper/css/autoplay";
 
 const EventBannerWrap = styled.div`
   padding-top: 87px;
+  @media (max-width: 900px) {
+    padding-top: 75px;
+  }
 `;
 const BannerWrap = styled.div`
   cursor: pointer;
@@ -23,9 +26,21 @@ const TopText = styled.div`
   font-size: 60px;
   font-weight: 700;
   margin-bottom: 10px;
+  @media (max-width: 900px) {
+    font-size: 40px;
+  }
+  @media (max-width: 550px) {
+    font-size: 20px;
+  }
 `;
 const BtmText = styled.div`
   font-size: 17px;
+  @media (max-width: 900px) {
+    font-size: 15px;
+  }
+  @media (max-width: 550px) {
+    font-size: 13px;
+  }
 `;
 
 const EventBanner = () => {
