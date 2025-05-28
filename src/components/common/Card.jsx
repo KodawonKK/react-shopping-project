@@ -72,7 +72,7 @@ const Card = ({ kind, item }) => {
   const navigate = useNavigate();
 
   const gotoProductDetail = () => {
-    navigate(`/product/${item.id}`);
+    navigate(`/product/${item.pageNum}`);
   };
 
   return (

@@ -1,7 +1,6 @@
 import React from "react";
 import Card from "../common/Card";
 import styled from "styled-components";
-import jsonData from "../../../src/dataList.json";
 
 const Title = styled.h1`
   text-align: center;
@@ -19,12 +18,12 @@ const BestList = styled.div`
   grid-template-columns: repeat(4, 1fr);
 `;
 
-const BestItemList = ({ title }) => {
+const BestItemList = ({ title, best }) => {
   return (
     <BestListWrap>
       <Title>{title}</Title>
       <BestList>
-        {jsonData.map((item, idx) => (
+        {best.map((item, idx) => (
           <Card item={item} kind={"best"} key={idx} />
         ))}
       </BestList>

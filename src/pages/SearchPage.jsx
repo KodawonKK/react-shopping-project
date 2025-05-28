@@ -36,6 +36,7 @@ const SearchTermBtn = styled.button`
   background: #fff;
   padding: 5px 5px;
   color: #8a8a8a;
+  cursor: pointer;
 `;
 const SearchResultWrap = styled.div`
   border-top: 1px solid #ddd;
@@ -74,9 +75,12 @@ const SearchPage = () => {
       navigate(`/search?q=${keyword}`);
     }
   };
+  const hashTagSearch = (item) => {
+    let keyword = item;
+    navigate(`/search?q=${keyword}`);
+  };
 
   useEffect(() => {
-    console.log(data);
     getProduct();
   }, [query]);
 
@@ -90,7 +94,9 @@ const SearchPage = () => {
           <SearchInput size={10} maxLength={30} onKeyDown={search} />
         </SearchWrap>
         {SearchTerm.map((item, idx) => (
-          <SearchTermBtn key={idx}>#{item}</SearchTermBtn>
+          <SearchTermBtn key={idx} onClick={() => hashTagSearch(item)}>
+            #{item}
+          </SearchTermBtn>
         ))}
       </SearchBoxWrap>
       <SearchResultWrap>
