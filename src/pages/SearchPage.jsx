@@ -93,7 +93,7 @@ const SearchPage = () => {
       </SearchBoxWrap>
       <SearchResultWrap>
         <SearchResult>
-          {data.length > 0 ? data.map((item, idx) => <Card item={item} key={idx} />) : <NoResult>검색 결과가 없습니다.</NoResult>}
+          {data.length > 0 ? data.map((item, idx) => <Card item={item} key={idx} kind="" />) : <NoResult>검색 결과가 없습니다.</NoResult>}
         </SearchResult>
       </SearchResultWrap>
     </SearchPageWrap>

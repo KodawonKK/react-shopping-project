@@ -65,6 +65,10 @@ const ColorBox = styled.span`
 `;
 
 const Card = ({ kind, item }) => {
+  const salePrice = Number(item.salePrice.replace(",", ""));
+  const originPrice = Number(item.price.replace(",", ""));
+  const discountRate = Math.floor(((originPrice - salePrice) / originPrice) * 100);
+
   const navigate = useNavigate();
 
   const gotoProductDetail = () => {
@@ -85,7 +89,7 @@ const Card = ({ kind, item }) => {
           <Price className="discounted">{item.salePrice}</Price>
           <Price className="original">{item.price}</Price>
         </PriceWrap>
-        {kind !== "coordi" && <Price className="percentage">{item.percent}</Price>}
+        {kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
       </PriceInfoWrap>
 
       {kind !== "coordi" && item.color.map((color, idx) => <ColorBox style={{ background: color }} key={idx}></ColorBox>)}

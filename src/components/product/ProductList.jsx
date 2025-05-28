@@ -39,11 +39,14 @@ const ProductList = ({ title, product, kind }) => {
           // onSwiper={(swiper) => console.log(swiper)}
           loop={true}
         >
-          {product?.map((item, idx) => (
-            <SwiperSlide key={idx}>
-              <Card item={item} kind={kind} />
-            </SwiperSlide>
-          ))}
+          {product?.map(
+            (item, idx) =>
+              idx <= 7 && (
+                <SwiperSlide key={idx}>
+                  <Card item={item} kind={kind} />
+                </SwiperSlide>
+              )
+          )}
         </Swiper>
       </ProductWrap>
     </ProductListWrap>
