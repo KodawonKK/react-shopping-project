@@ -8,6 +8,9 @@ const PageMenuWrap = styled.div`
   padding: 40px 20px 0px;
   max-width: 1240px;
   margin: 0 auto 50px;
+  @media (max-width: 720px) {
+    max-width: 600px;
+  }
 `;
 const PageMenuList = styled.div`
   color: #a0a0a0;
@@ -16,6 +19,9 @@ const PageMenuList = styled.div`
   cursor: pointer;
   &.hover {
     color: #000;
+  }
+  @media (max-width: 500px) {
+    font-size: 13px;
   }
 `;
 const MyPageHeader = () => {

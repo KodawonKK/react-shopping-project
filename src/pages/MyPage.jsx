@@ -18,10 +18,17 @@ const MyPageInfoWrap = styled.div`
   max-width: 1240px;
   width: 90%;
   margin: 0 auto;
+  @media (max-width: 720px) {
+    width: 80%;
+    padding: 40px 40px 30px;
+  }
 `;
 const MyPageInfoTop = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
 `;
 const MyPageInfoLeft = styled.div`
   display: flex;
@@ -61,6 +68,9 @@ const MyPageItemWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 33.333%;
+  @media (max-width: 720px) {
+    padding: 20px 10px;
+  }
 `;
 const MyPageItemImgWrap = styled.div`
   padding-bottom: 5px;

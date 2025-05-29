@@ -1,4 +1,38 @@
 {
+  "bannerPC": [
+    {
+      "img": "banner1",
+      "comment": "다다익선 혜택",
+      "comment2": "구매할수록 늘어나는 혜택 최대 20%"
+    },
+    {
+      "img": "banner2",
+      "comment": "스프링 이너 위크",
+      "comment2": "전상품 15% 쿠폰 + 이너 2개 구매 시 20%"
+    },
+    {
+      "img": "banner3",
+      "comment": "봄을 알리는 아우터",
+      "comment2": "설레는 신상 아우터 단독 혜택"
+    },
+    {
+      "img": "banner4",
+      "comment": "인플루언서가 소개해요",
+      "comment2": "여름 신상 자켓 공홈 단독 혜택"
+    }
+  ],
+  "bannerMobile": [
+    {
+      "img": "mobile_banner5",
+      "comment": "일상과 휴양지의 경계없이",
+      "comment2": "여름을 완성할 리조트 룩"
+    },
+    {
+      "img": "mobile_banner6",
+      "comment": "가볍게 담기 좋은",
+      "comment2": "자유로운 실루엣의 여름 신상 모아보기"
+    }
+  ],
   "products": [
     {
       "id": 1,

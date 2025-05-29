@@ -11,15 +11,17 @@ import MyPage from "./pages/MyPage";
 import LikePage from "./pages/LikePage";
 import Footer from "./components/layout/Footer";
 import SearchPage from "./pages/SearchPage";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const { authenticate } = useContext(AuthContext);
+  const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
 
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home isMobile={isMobile} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/mypage" element={authenticate ? <MyPage /> : <Login />} />

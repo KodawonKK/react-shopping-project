@@ -1,5 +1,4 @@
 import React from "react";
-import BannerList from "../../bannerList.json";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -8,7 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
 const EventBannerWrap = styled.div`
-  padding-top: 87px;
+  padding-top: 93px;
   @media (max-width: 900px) {
     padding-top: 75px;
   }
@@ -43,7 +42,7 @@ const BtmText = styled.div`
   }
 `;
 
-const EventBanner = () => {
+const EventBanner = ({ banner, bannerMobile, isMobile }) => {
   return (
     <EventBannerWrap>
       <Swiper
@@ -55,17 +54,35 @@ const EventBanner = () => {
         navigation
         autoplay={{ delay: 3500, disableOnInteraction: false }}
       >
-        {BannerList.map((item, idx) => (
-          <SwiperSlide key={idx}>
-            <BannerWrap>
-              <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" style={{ width: "100%" }} />
-              <TextWrap>
-                <TopText>{item.comment}</TopText>
-                <BtmText>{item.comment2}</BtmText>
-              </TextWrap>
-            </BannerWrap>
-          </SwiperSlide>
-        ))}
+        {isMobile ? (
+          <>
+            {bannerMobile.map((item, idx) => (
+              <SwiperSlide key={idx}>
+                <BannerWrap>
+                  <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" style={{ width: "100%" }} />
+                  <TextWrap>
+                    <TopText>{item.comment}</TopText>
+                    <BtmText>{item.comment2}</BtmText>
+                  </TextWrap>
+                </BannerWrap>
+              </SwiperSlide>
+            ))}
+          </>
+        ) : (
+          <>
+            {banner.map((item, idx) => (
+              <SwiperSlide key={idx}>
+                <BannerWrap>
+                  <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="배너" style={{ width: "100%" }} />
+                  <TextWrap>
+                    <TopText>{item.comment}</TopText>
+                    <BtmText>{item.comment2}</BtmText>
+                  </TextWrap>
+                </BannerWrap>
+              </SwiperSlide>
+            ))}
+          </>
+        )}
       </Swiper>
     </EventBannerWrap>
   );

@@ -36,8 +36,9 @@ const ProductList = ({ title, product, kind }) => {
             300: {
               slidesPerView: 2 // 모바일
             },
-
-            650: { slidesPerView: 3 },
+            650: {
+              slidesPerView: 3
+            },
             1024: {
               slidesPerView: 4 // PC
             }

@@ -5,29 +5,36 @@ import BestItemList from "../components/product/BestItemList";
 import EventBanner from "../components/product/EventBanner";
 import BottomBanner from "../components/product/BottomBanner";
 
-const Home = () => {
+const Home = ({ isMobile }) => {
   const [product, setProductList] = useState([]);
   const [best, setBest] = useState([]);
-  const getProducts = async () => {
-    let url = `http://localhost:5000/products/`;
-    let response = await fetch(url);
+  const [banner, setBanner] = useState([]);
+  const [bannerMobile, setBannerMobile] = useState([]);
+
+  const fetchData = async (url, setter) => {
+    let fetchUrl = `http://localhost:5000/${url}/`;
+    let response = await fetch(fetchUrl);
     let data = await response.json();
-    setProductList(data);
+    setter(data);
   };
-  const getBest = async () => {
-    let url = `http://localhost:5000/bestItem/`;
-    let response = await fetch(url);
-    let data = await response.json();
-    setBest(data);
-  };
+
   useEffect(() => {
-    getProducts();
-    getBest();
+    fetchData("products", setProductList);
+    fetchData("bestItem", setBest);
   }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      fetchData("bannerMobile", setBannerMobile);
+    } else {
+      fetchData("bannerPC", setBanner);
+    }
+  }, [isMobile]);
+
   return (
     <div>
       {/* 상단 배너 */}
-      <EventBanner />
+      <EventBanner banner={banner} bannerMobile={bannerMobile} isMobile={isMobile} />
       {/* 신상품 */}
       <ProductList title={"이번 주 신상품"} product={product} />
       {/* 이번주 베스트 */}

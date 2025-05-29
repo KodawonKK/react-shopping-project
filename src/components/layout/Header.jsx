@@ -9,6 +9,7 @@ import SearchIcon from "../../assets/icon/search.svg";
 import WishIcon from "../../assets/icon/wish.svg";
 import CartIcon from "../../assets/icon/cart.svg";
 import Search from "../common/Search";
+import { MediaQuery, useMediaQuery } from "react-responsive";
 
 const HeaderWrap = styled.div`
   width: 100%;
@@ -27,17 +28,26 @@ const HeaderMenu = styled.div`
   padding: 20px 20px;
   border-bottom: 1px solid #ddd;
 `;
+
 const ImgWrap = styled.div`
   padding: 0 30px 0 0;
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     padding: 0 10px 0 0;
+  }
+  @media (max-width: 760px) {
+    padding: 12px 0 10px;
+  }
+`;
+const LogoImg = styled.img`
+  @media (max-width: 760px) {
+    height: 25px;
   }
 `;
 const MenuWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     white-space: nowrap;
     font-size: 15px;
   }
@@ -50,6 +60,9 @@ const MenuList = styled.div`
   }
   @media (max-width: 900px) {
     padding: 0 10px;
+  }
+  @media (max-width: 760px) {
+    padding: 0 15px 0 0;
   }
 `;
 const IconMenuWrap = styled.div`
@@ -67,6 +80,9 @@ const IconMenuList = styled.div`
   }
   @media (max-width: 900px) {
     width: 17px;
+  }
+  @media (max-width: 760px) {
+    width: 20px;
   }
 `;
 const MypageModalWrap = styled.div`
@@ -100,16 +116,25 @@ const CartNum = styled.span`
   color: #fff;
   font-weight: bold;
 `;
+const MobileHeader = styled.div`
+  padding: 0 20px 12px;
+`;
+const MobileHeaderTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const Header = () => {
   const loginStatus = localStorage.getItem("login") === "true";
-  const menu = ["베스트", "세일", "뉴컬렉션", "신상품", "전체상품", "기획전"];
+  const menu = ["베스트", "세일", "뉴컬렉션", "신상품", "전체상품"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
   const myPageMenu = [loginStatus ? "로그아웃" : "로그인", "주문조회", "마이페이지"];
   const [isHovered, setIsHovered] = useState(false);
   const [isClose, setClose] = useState(false);
   const navigate = useNavigate();
   const { authenticate, setAuthenticate } = useContext(AuthContext);
+  const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
 
   const clickMenu = (idx) => {
     if (idx === 3) {
@@ -146,49 +171,77 @@ const Header = () => {
 
   return (
     <HeaderWrap className="header">
-      <HeaderMenu>
-        <Link to="/">
-          <ImgWrap>
-            <img src={Logo} alt="미쏘로고" width={"100%"} />
-          </ImgWrap>
-        </Link>
-
-        <MenuWrap>
-          {menu.map((item, idx) => (
-            <MenuList key={idx}>{item}</MenuList>
-          ))}
-        </MenuWrap>
-        <IconMenuWrap>
-          {iconMenu.map((item, idx) =>
-            idx !== 3 ? (
-              <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
-                <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-                {idx === 2 && <CartNum>0</CartNum>}
-              </IconMenuList>
-            ) : (
-              <IconMenuList
-                key={idx}
-                onClick={() => clickMenu(idx)}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                className="mypage"
-              >
-                <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-                {/* 마이페이지 모달 */}
-                {isHovered && (
-                  <MypageModalWrap>
-                    {myPageMenu.map((item, idx) => (
-                      <MypageModal key={idx} onClick={() => clickMyPage(idx)}>
-                        {item}
-                      </MypageModal>
-                    ))}
-                  </MypageModalWrap>
-                )}
-              </IconMenuList>
-            )
-          )}
-        </IconMenuWrap>
-      </HeaderMenu>
+      {isMobile ? (
+        <MobileHeader>
+          <MobileHeaderTop>
+            <Link to="/">
+              <ImgWrap>
+                <LogoImg src={Logo} alt="미쏘로고" />
+              </ImgWrap>
+            </Link>
+            <IconMenuWrap>
+              {iconMenu.map(
+                (item, idx) =>
+                  idx >= 1 &&
+                  idx <= 2 && (
+                    <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
+                      <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                      {idx === 2 && <CartNum>0</CartNum>}
+                    </IconMenuList>
+                  )
+              )}
+            </IconMenuWrap>
+          </MobileHeaderTop>
+          <MenuWrap>
+            {menu.map((item, idx) => (
+              <MenuList key={idx}>{item}</MenuList>
+            ))}
+          </MenuWrap>
+        </MobileHeader>
+      ) : (
+        <HeaderMenu>
+          <Link to="/">
+            <ImgWrap>
+              <img src={Logo} alt="미쏘로고" />
+            </ImgWrap>
+          </Link>
+          <MenuWrap>
+            {menu.map((item, idx) => (
+              <MenuList key={idx}>{item}</MenuList>
+            ))}
+          </MenuWrap>
+          <IconMenuWrap>
+            {iconMenu.map((item, idx) =>
+              idx !== 3 ? (
+                <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
+                  <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                  {idx === 2 && <CartNum>0</CartNum>}
+                </IconMenuList>
+              ) : (
+                <IconMenuList
+                  key={idx}
+                  onClick={() => clickMenu(idx)}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  className="mypage"
+                >
+                  <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                  {/* 마이페이지 모달 */}
+                  {isHovered && (
+                    <MypageModalWrap>
+                      {myPageMenu.map((item, idx) => (
+                        <MypageModal key={idx} onClick={() => clickMyPage(idx)}>
+                          {item}
+                        </MypageModal>
+                      ))}
+                    </MypageModalWrap>
+                  )}
+                </IconMenuList>
+              )
+            )}
+          </IconMenuWrap>
+        </HeaderMenu>
+      )}
       {isClose && <Search closeSearch={closeSearch} setClose={setClose} />}
     </HeaderWrap>
   );

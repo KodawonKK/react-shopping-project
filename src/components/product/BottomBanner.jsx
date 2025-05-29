@@ -7,11 +7,18 @@ const BannerWrap = styled.div`
   padding: 50px 20px;
   display: flex;
   gap: 10px;
+  @media (max-width: 760px) {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
 `;
 const CardWrap = styled.div`
   width: 90%;
   margin: 0 auto;
   overflow: hidden;
+  @media (max-width: 760px) {
+    margin: 5px auto;
+  }
 `;
 const ImgWrap = styled.div`
   overflow: hidden;
