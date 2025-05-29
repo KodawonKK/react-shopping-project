@@ -124,9 +124,9 @@ const LikePage = () => {
 
   // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
-    console.log(isLikeList);
     const likeListIds = Object.keys(isLikeList);
     const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
+    console.log(isLikeList, likeListIds);
     if (likeListId !== "") {
       const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
@@ -172,9 +172,9 @@ const LikePage = () => {
             <LikeListBtmWrap key={item.idx}>
               <CheckBox type="checkbox" id={`chk${idx}`} />
               <Label htmlFor={`chk${idx}`} />
-              <Link to={`/product/${item.id}`}>
+              <Link to={`/product/${item.pageNum}`}>
                 <ProductInfoWrap>
-                  <Img src={require(`../assets/images/product${item.id}.jpg`)} alt="상품이미지" />
+                  <Img src={require(`../assets/images/${item.img}.jpg`)} alt="상품이미지" />
                   <ProductInfoTitle>{item.name}</ProductInfoTitle>
                   {/* <ProductOption>옵션변경</ProductOption> */}
                 </ProductInfoWrap>

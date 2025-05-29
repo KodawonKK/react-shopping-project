@@ -80,7 +80,7 @@ const Card = ({ kind, item }) => {
       <CardImgWrap onClick={gotoProductDetail}>
         {kind === "best" && <CardNum>{item.id}</CardNum>}
         <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="상품" width="100%" />
-        <LikeBtn id={item.id} />
+        <LikeBtn id={item.pageNum} />
       </CardImgWrap>
 
       <ProductName>{item.name}</ProductName>

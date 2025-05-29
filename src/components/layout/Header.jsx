@@ -79,7 +79,7 @@ const IconMenuList = styled.div`
     position: initial;
   }
   @media (max-width: 900px) {
-    width: 17px;
+    width: 25px;
   }
   @media (max-width: 760px) {
     width: 20px;
