@@ -30,6 +30,7 @@ const HeaderMenu = styled.div`
 `;
 
 const ImgWrap = styled.div`
+  cursor: pointer;
   padding: 0 30px 0 0;
   @media (max-width: 1000px) {
     padding: 0 10px 0 0;
@@ -164,6 +165,10 @@ const Header = () => {
     console.log("하이");
     console.log(isClose);
   };
+  const clickHeader = () => {
+    navigate("/");
+    setClose(false);
+  };
 
   // useEffect(() => {
   //   console.log(authenticate);
@@ -174,11 +179,11 @@ const Header = () => {
       {isMobile ? (
         <MobileHeader>
           <MobileHeaderTop>
-            <Link to="/">
+            <div onClick={clickHeader}>
               <ImgWrap>
                 <LogoImg src={Logo} alt="미쏘로고" />
               </ImgWrap>
-            </Link>
+            </div>
             <IconMenuWrap>
               {iconMenu.map(
                 (item, idx) =>
@@ -200,11 +205,11 @@ const Header = () => {
         </MobileHeader>
       ) : (
         <HeaderMenu>
-          <Link to="/">
+          <div onClick={clickHeader}>
             <ImgWrap>
               <img src={Logo} alt="미쏘로고" />
             </ImgWrap>
-          </Link>
+          </div>
           <MenuWrap>
             {menu.map((item, idx) => (
               <MenuList key={idx}>{item}</MenuList>

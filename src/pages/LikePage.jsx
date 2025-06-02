@@ -119,21 +119,19 @@ const LikePage = () => {
   const btmButton = ["삭제하기", "장바구니 담기", "전체상품주문", "관심상품 비우기"];
   const btnImgArr = ["first", "prev", "next", "last"];
   const choiceList = ["주문하기", "장바구니", "삭제"];
-  // const [likeList, setLikeList] = useState({}); // 좋아요한 게시물의 정보
+  const [likeList, setLikeInfoList] = useState({}); // 좋아요한 게시물의 정보
   const { isLikeList, setLikeList } = useContext(LikeContext);
 
   // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
     const likeListIds = Object.keys(isLikeList);
     const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
-    console.log(isLikeList, likeListIds);
     if (likeListId !== "") {
       const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
-      setLikeList(json.reverse());
-    } else {
-      setLikeList([]); // 아무것도 없으면 빈 배열로 초기화
+      setLikeInfoList(json.reverse());
+      console.log("likeListId");
     }
   };
   const deleteLikeProduct = (idx) => {
@@ -142,14 +140,15 @@ const LikePage = () => {
       if (!confirmed) return;
 
       localStorage.removeItem("likeItemId");
-      getLikeProduct();
+      setLikeInfoList({});
+      setLikeList({});
       alert("삭제되었습니다.");
     }
   };
 
   useEffect(() => {
     getLikeProduct();
-  }, []);
+  }, [isLikeList]);
 
   return (
     <LikePageWrap>
@@ -167,8 +166,8 @@ const LikePage = () => {
             )
           )}
         </LikePageListHeadWrap>
-        {isLikeList.length > 0 ? (
-          isLikeList.map((item, idx) => (
+        {likeList.length > 0 ? (
+          likeList.map((item, idx) => (
             <LikeListBtmWrap key={item.idx}>
               <CheckBox type="checkbox" id={`chk${idx}`} />
               <Label htmlFor={`chk${idx}`} />

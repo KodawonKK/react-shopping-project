@@ -44,8 +44,8 @@ const LikeBtn = ({ id }) => {
   };
 
   useEffect(() => {
-    // console.log(isLikeList, isLike, likeCheck);
-  }, [isLikeList]);
+    console.log(isLike);
+  }, [isLike]);
 
   return (
     <LikeBtnWrap
