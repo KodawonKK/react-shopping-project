@@ -192,13 +192,13 @@ const ProductDetail = () => {
   ];
 
   const getProductDetail = async () => {
-    let url = `http://localhost:5000/products/${id}`;
+    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductData(data);
   };
   const getCoordiList = async () => {
-    let url = `http://localhost:5000/coordiItem/`;
+    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/coordiItem/`;
     let response = await fetch(url);
     let data = await response.json();
     setCoordiList(data);

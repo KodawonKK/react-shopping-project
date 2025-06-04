@@ -69,7 +69,7 @@ const Login = () => {
   const loginUser = async () => {
     let id = userId;
     let pwd = userPwd;
-    let url = `http://localhost:5000/user?id=${id}&password=${pwd}`;
+    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/user?id=${id}&password=${pwd}`;
     let response = await fetch(url);
 
     if (!response.ok) {

@@ -77,7 +77,7 @@ const Search = ({ setClose }) => {
   const navigate = useNavigate();
 
   const getProduct = async () => {
-    let url = `http://localhost:5000/coordiItem/`;
+    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/coordiItem/`;
     let response = await fetch(url);
     let json = await response.json();
     setData(json);

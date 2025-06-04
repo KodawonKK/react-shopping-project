@@ -12,7 +12,7 @@ const Home = ({ isMobile }) => {
   const [bannerMobile, setBannerMobile] = useState([]);
 
   const fetchData = async (url, setter) => {
-    let fetchUrl = `http://localhost:5000/${url}/`;
+    let fetchUrl = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/${url}/`;
     let response = await fetch(fetchUrl);
     let data = await response.json();
     setter(data);
