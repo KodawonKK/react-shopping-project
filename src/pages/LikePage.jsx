@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import MyPageHeader from "../components/common/MyPageHeader";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LikeContext } from "../contexts/LikeContext";
 
 const LikePageWrap = styled.div`
