@@ -196,15 +196,15 @@ const ProductDetail = () => {
   const discountRate = Math.floor(((originPrice - salePrice) / originPrice) * 100);
 
   const getProductDetail = async () => {
-    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products/?pageNum=${pageNum}`;
-    // let url = `http://localhost:5000/products/?pageNum=${pageNum}`;
+    // let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products/?pageNum=${pageNum}`;
+    let url = `http://localhost:5000/products/?pageNum=${pageNum}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductData(data);
   };
   const getCoordiList = async () => {
-    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/coordiItem/`;
-    // let url = `http://localhost:5000/coordiItem/`;
+    // let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/coordiItem/`;
+    let url = `http://localhost:5000/coordiItem/`;
     let response = await fetch(url);
     let data = await response.json();
     setCoordiList(data);

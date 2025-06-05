@@ -127,8 +127,8 @@ const LikePage = () => {
     const likeListIds = Object.keys(isLikeList);
     const likeListId = likeListIds.map((id) => `pageNum=${id}`).join("&");
     if (likeListId !== "") {
-      const url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products?${likeListId}`;
-      // const url = `http://localhost:5000/products?${likeListId}`;
+      // const url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products?${likeListId}`;
+      const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
       setLikeInfoList(json.reverse());

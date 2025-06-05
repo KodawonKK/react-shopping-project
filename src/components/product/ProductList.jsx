@@ -25,7 +25,6 @@ const ProductWrap = styled.div`
 `;
 
 const ProductList = ({ title, product, kind }) => {
-  console.log(product, "product");
   return (
     <ProductListWrap style={{ margin: "0 auto" }}>
       <Title style={kind === "coordi" ? { textAlign: "left", padding: "20px 30px", fontSize: "30px", fontWeight: 100 } : {}}>{title}</Title>

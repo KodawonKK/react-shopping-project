@@ -12,6 +12,7 @@ import LikePage from "./pages/LikePage";
 import Footer from "./components/layout/Footer";
 import SearchPage from "./pages/SearchPage";
 import { useMediaQuery } from "react-responsive";
+import MobileBottomMenu from "./components/common/MobileBottomMenu";
 
 function App() {
   const { authenticate } = useContext(AuthContext);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
       </Routes>
       <Footer />
+      {isMobile && <MobileBottomMenu />}
     </>
   );
 }

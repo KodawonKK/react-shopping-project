@@ -118,7 +118,7 @@ const CartNum = styled.span`
   font-weight: bold;
 `;
 const MobileHeader = styled.div`
-  padding: 0 20px 12px;
+  padding: 0 0px 12px 15px;
 `;
 const MobileHeaderTop = styled.div`
   display: flex;
