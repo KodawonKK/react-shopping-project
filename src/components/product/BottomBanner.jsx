@@ -57,7 +57,7 @@ const ViewMore = styled.span`
 const BottomBanner = () => {
   return (
     <BannerWrap>
-      {btmBannerData.map((item, idx) => (
+      {btmBannerData.btmBanner.map((item, idx) => (
         <CardWrap key={idx}>
           <ImgWrap>
             <BannerImg src={require(`../../assets/images/${item.img}.jpg`)} alt="하단 이벤트 배너" />

@@ -4,6 +4,7 @@ import ProductList from "../components/product/ProductList";
 import BestItemList from "../components/product/BestItemList";
 import EventBanner from "../components/product/EventBanner";
 import BottomBanner from "../components/product/BottomBanner";
+import btmBannerData from "../btmBannerList.json";
 
 const Home = ({ isMobile }) => {
   const [product, setProductList] = useState([]);
@@ -22,14 +23,15 @@ const Home = ({ isMobile }) => {
   useEffect(() => {
     fetchData("products", setProductList);
     fetchData("bestItem", setBest);
-    console.log(best, "best");
   }, []);
 
   useEffect(() => {
     if (isMobile) {
-      fetchData("bannerMobile", setBannerMobile);
+      setBannerMobile(btmBannerData.bannerMobile);
+      // fetchData("bannerMobile", setBannerMobile);
     } else {
-      fetchData("bannerPC", setBanner);
+      setBanner(btmBannerData.bannerPC);
+      // fetchData("bannerPC", setBanner);
     }
   }, [isMobile]);
 
