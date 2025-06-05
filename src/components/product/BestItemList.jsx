@@ -22,7 +22,7 @@ const BestList = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 360px) {
+  @media (max-width: 420px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

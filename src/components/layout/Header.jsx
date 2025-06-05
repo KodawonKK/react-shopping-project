@@ -162,7 +162,6 @@ const Header = () => {
     }
   };
   const closeSearch = () => {
-    console.log("하이");
     console.log(isClose);
   };
   const clickHeader = () => {
