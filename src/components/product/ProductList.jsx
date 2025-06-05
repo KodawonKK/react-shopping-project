@@ -33,7 +33,10 @@ const ProductList = ({ title, product, kind }) => {
           spaceBetween={20}
           slidesPerView={4}
           breakpoints={{
-            300: {
+            280: {
+              slidesPerView: 1.5 // 모바일
+            },
+            400: {
               slidesPerView: 2 // 모바일
             },
             650: {
