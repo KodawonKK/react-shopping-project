@@ -13,6 +13,7 @@ const Home = ({ isMobile }) => {
 
   const fetchData = async (url, setter) => {
     let fetchUrl = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/${url}/`;
+    // let fetchUrl = `http://localhost:5000/${url}/`;
     let response = await fetch(fetchUrl);
     let data = await response.json();
     setter(data);
@@ -21,6 +22,7 @@ const Home = ({ isMobile }) => {
   useEffect(() => {
     fetchData("products", setProductList);
     fetchData("bestItem", setBest);
+    console.log(best, "best");
   }, []);
 
   useEffect(() => {

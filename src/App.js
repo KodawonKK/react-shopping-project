@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home isMobile={isMobile} />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:pageNum" element={<ProductDetail />} />
         <Route path="/mypage" element={authenticate ? <MyPage /> : <Login />} />
         <Route path="/like" element={authenticate ? <LikePage /> : <Login />} />
         <Route path="/search" element={<SearchPage />} />

@@ -170,13 +170,13 @@ const ProductDetail = () => {
   const scrollQnA = useRef(null);
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  const { pageNum } = useParams();
   const { authenticate } = useContext(AuthContext);
   const { isLikeList, setLikeList } = useContext(LikeContext);
 
   const likeList = JSON.parse(localStorage.getItem("likeItemId") || "{}");
   const likeListIds = Object.keys(likeList);
-  const likeCheck = authenticate && likeListIds.includes(`${id}`);
+  const likeCheck = authenticate && likeListIds.includes(`${pageNum}`);
 
   let productID = productData?.name?.split("_")[1];
 
@@ -190,15 +190,21 @@ const ProductDetail = () => {
     { type: "popup", title: "배송안내" },
     { type: "popup", title: "취소/반품/교환/환불 안내" }
   ];
+  const size = ["S(090)", "M(095)", "L(100)"];
+  const salePrice = Number(productData[0]?.price["sale"].replace(",", ""));
+  const originPrice = Number(productData[0]?.price["original"].replace(",", ""));
+  const discountRate = Math.floor(((originPrice - salePrice) / originPrice) * 100);
 
   const getProductDetail = async () => {
-    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products/${id}`;
+    let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products/?pageNum=${pageNum}`;
+    // let url = `http://localhost:5000/products/?pageNum=${pageNum}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductData(data);
   };
   const getCoordiList = async () => {
     let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/coordiItem/`;
+    // let url = `http://localhost:5000/coordiItem/`;
     let response = await fetch(url);
     let data = await response.json();
     setCoordiList(data);
@@ -206,7 +212,7 @@ const ProductDetail = () => {
   // 기능 추가 이후, 하나의 함수로 리팩토링할 수 있을지 검토 예정
   const handleColorBtn = (item, idx) => {
     setColorBtn(idx);
-    setColor(item);
+    setColor(item.eng);
   };
   const handleSizeBtn = (item, idx) => {
     setSizeBtn(idx);
@@ -223,12 +229,12 @@ const ProductDetail = () => {
       return;
     }
     setLike((prev) => !prev);
-    const updated = { ...likeList, [id]: !isLike };
+    const updated = { ...likeList, [pageNum]: !isLike };
     if (!isLike) {
       localStorage.setItem("likeItemId", JSON.stringify(updated));
       setLikeList(updated);
     } else {
-      delete updated[id];
+      delete updated[pageNum];
       localStorage.setItem("likeItemId", JSON.stringify(updated));
       setLikeList(updated);
     }
@@ -238,23 +244,22 @@ const ProductDetail = () => {
     getProductDetail();
     getCoordiList();
   }, [isLike, authenticate, isLikeList]);
-
   return (
     <ProductDetailWrap>
       {/* 상품 상세 정보 TOP  */}
       <ProductDetailTop>
         <ProductDetailImg>
-          {productData?.img && <img src={require(`../assets/images/${productData?.img}.jpg`)} alt="상품" width="100%" />}
+          {productData[0]?.img && <img src={require(`../assets/images/${productData[0]?.img}.jpg`)} alt="상품" width="100%" />}
         </ProductDetailImg>
         {/* 사용자 선택 필수 옵션: 색상 및 사이즈 */}
         <ProductDetailInfo>
           <ProductId>{productID}</ProductId>
-          <ProductName>{productData?.name}</ProductName>
+          <ProductName>{productData[0]?.name}</ProductName>
           <PriceInfoWrap>
             <PriceWrap>
-              <Price className="discounted">{productData?.salePrice}</Price>
-              <Price className="original">{productData?.price}</Price>
-              <Price className="percentage">{productData?.percent}</Price>
+              <Price className="discounted">{productData[0]?.price["sale"]}</Price>
+              <Price className="original">{productData[0]?.price["original"]}</Price>
+              <Price className="percentage">{discountRate}%</Price>
             </PriceWrap>
           </PriceInfoWrap>
           {/* 색상 선택 버튼 목록 렌더링 */}
@@ -262,9 +267,9 @@ const ProductDetail = () => {
             <RequireWrap>
               <Color>Color</Color>
               <div>
-                {productData?.colorEng?.map((item, idx) => (
+                {productData[0]?.colors?.map((item, idx) => (
                   <SelectBtn key={idx} onClick={() => handleColorBtn(item, idx)} className={colorBtn === idx ? "active" : ""}>
-                    {item}
+                    {item.eng}
                   </SelectBtn>
                 ))}
                 <RequiredTxt>[필수] {isColor} 선택</RequiredTxt>
@@ -273,7 +278,7 @@ const ProductDetail = () => {
             <RequireWrap>
               <Color>Size</Color>
               <div>
-                {productData?.size?.map((item, idx) => (
+                {size?.map((item, idx) => (
                   <SelectBtn key={idx} onClick={() => handleSizeBtn(item, idx)} className={sizeBtn === idx ? "active" : ""}>
                     {item}
                   </SelectBtn>

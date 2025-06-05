@@ -125,9 +125,10 @@ const LikePage = () => {
   // 좋아요한 게시물의 정보 가져오는 함수
   const getLikeProduct = async () => {
     const likeListIds = Object.keys(isLikeList);
-    const likeListId = likeListIds.map((id) => `id=${id}`).join("&");
+    const likeListId = likeListIds.map((id) => `pageNum=${id}`).join("&");
     if (likeListId !== "") {
       const url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products?${likeListId}`;
+      // const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
       setLikeInfoList(json.reverse());

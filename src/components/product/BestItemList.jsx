@@ -32,8 +32,8 @@ const BestItemList = ({ title, best }) => {
     <BestListWrap>
       <Title>{title}</Title>
       <BestList>
-        {best.map((item, idx) => (
-          <Card item={item} kind={"best"} key={idx} />
+        {best?.map((item, idx) => (
+          <Card item={item} kind={"best"} key={idx} grade={idx + 1} />
         ))}
       </BestList>
     </BestListWrap>

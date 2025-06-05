@@ -64,9 +64,9 @@ const ColorBox = styled.span`
   margin-right: 3px;
 `;
 
-const Card = ({ kind, item }) => {
-  const salePrice = Number(item.salePrice.replace(",", ""));
-  const originPrice = Number(item.price.replace(",", ""));
+const Card = ({ kind, item, grade }) => {
+  const salePrice = Number(item.price["sale"].replace(",", ""));
+  const originPrice = Number(item.price["original"].replace(",", ""));
   const discountRate = Math.floor(((originPrice - salePrice) / originPrice) * 100);
 
   const navigate = useNavigate();
@@ -78,21 +78,22 @@ const Card = ({ kind, item }) => {
   return (
     <CardWrap>
       <CardImgWrap onClick={gotoProductDetail}>
-        {kind === "best" && <CardNum>{item.id}</CardNum>}
+        {kind === "best" && <CardNum>{grade}</CardNum>}
         <img src={require(`../../assets/images/${item?.img}.jpg`)} alt="상품" width="100%" />
         <LikeBtn id={item.pageNum} />
       </CardImgWrap>
-
       <ProductName>{item.name}</ProductName>
+
       <PriceInfoWrap>
         <PriceWrap>
-          <Price className="discounted">{item.salePrice}</Price>
-          <Price className="original">{item.price}</Price>
+          <Price className="discounted">{item.price["sale"]}</Price>
+          <Price className="original">{item.price["original"]}</Price>
         </PriceWrap>
+
         {kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
       </PriceInfoWrap>
 
-      {kind !== "coordi" && item.color.map((color, idx) => <ColorBox style={{ background: color }} key={idx}></ColorBox>)}
+      {kind !== "coordi" && item.colors.map((color, idx) => <ColorBox style={{ background: color.hex }} key={idx}></ColorBox>)}
     </CardWrap>
   );
 };
