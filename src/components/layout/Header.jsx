@@ -10,6 +10,7 @@ import WishIcon from "../../assets/icon/wish.svg";
 import CartIcon from "../../assets/icon/cart.svg";
 import Search from "../common/Search";
 import { MediaQuery, useMediaQuery } from "react-responsive";
+import MobileHeaderMenu from "../common/MobileHeaderMenu";
 
 const HeaderWrap = styled.div`
   width: 100%;
@@ -119,6 +120,7 @@ const CartNum = styled.span`
 `;
 const MobileHeader = styled.div`
   padding: 0 0px 12px 15px;
+  border: 1px solid #e5e5e5;
 `;
 const MobileHeaderTop = styled.div`
   display: flex;
@@ -126,7 +128,7 @@ const MobileHeaderTop = styled.div`
   justify-content: space-between;
 `;
 
-const Header = () => {
+const Header = ({ path }) => {
   const loginStatus = localStorage.getItem("login") === "true";
   const menu = ["베스트", "세일", "뉴컬렉션", "신상품", "전체상품"];
   const iconMenu = [WishIcon, SearchIcon, CartIcon, MyPageIcon];
@@ -168,6 +170,18 @@ const Header = () => {
     navigate("/");
     setClose(false);
   };
+  const titleMap = {
+    "/like": "관심상품",
+    "/mypage": "마이 페이지",
+    "/login": "로그인"
+  };
+  const getTitle = () => {
+    for (const [key, value] of Object.entries(titleMap)) {
+      if (path.startsWith(key)) {
+        return value;
+      }
+    }
+  };
 
   // useEffect(() => {
   //   console.log(authenticate);
@@ -176,32 +190,35 @@ const Header = () => {
   return (
     <HeaderWrap className="header">
       {isMobile ? (
-        <MobileHeader>
-          <MobileHeaderTop>
-            <div onClick={clickHeader}>
-              <ImgWrap>
-                <LogoImg src={Logo} alt="미쏘로고" />
-              </ImgWrap>
-            </div>
-            <IconMenuWrap>
-              {iconMenu.map(
-                (item, idx) =>
-                  idx >= 1 &&
-                  idx <= 2 && (
-                    <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
-                      <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
-                      {idx === 2 && <CartNum>0</CartNum>}
-                    </IconMenuList>
-                  )
-              )}
-            </IconMenuWrap>
-          </MobileHeaderTop>
-          <MenuWrap>
-            {menu.map((item, idx) => (
-              <MenuList key={idx}>{item}</MenuList>
-            ))}
-          </MenuWrap>
-        </MobileHeader>
+        <>
+          <MobileHeader>
+            <MobileHeaderTop>
+              <div onClick={clickHeader}>
+                <ImgWrap>
+                  <LogoImg src={Logo} alt="미쏘로고" />
+                </ImgWrap>
+              </div>
+              <IconMenuWrap>
+                {iconMenu.map(
+                  (item, idx) =>
+                    idx >= 1 &&
+                    idx <= 2 && (
+                      <IconMenuList key={idx} onClick={() => clickMenu(idx)}>
+                        <img src={item} width={"100%"} alt="오른쪽 상단 아이콘" />
+                        {idx === 2 && <CartNum>0</CartNum>}
+                      </IconMenuList>
+                    )
+                )}
+              </IconMenuWrap>
+            </MobileHeaderTop>
+            <MenuWrap>
+              {menu.map((item, idx) => (
+                <MenuList key={idx}>{item}</MenuList>
+              ))}
+            </MenuWrap>
+          </MobileHeader>
+          {path !== "/" && <MobileHeaderMenu menu={getTitle()} />}
+        </>
       ) : (
         <HeaderMenu>
           <div onClick={clickHeader}>

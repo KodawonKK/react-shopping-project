@@ -3,9 +3,10 @@ import MyPageHeader from "../components/common/MyPageHeader";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LikeContext } from "../contexts/LikeContext";
+import Like from "./mobile/Like";
 
 const LikePageWrap = styled.div`
-  padding-top: 100px;
+  padding-top: 120px;
   max-width: 1240px;
   width: 95%;
   margin: 0 auto;
@@ -114,12 +115,12 @@ const PaginationWrap = styled.div`
   padding: 15px 0;
 `;
 
-const LikePage = () => {
+const LikePage = ({ isMobile }) => {
   const productListArr = ["checkbox", "상품정보", "적립금", "배송구분", "배송비", "합계", "선택"];
   const btmButton = ["삭제하기", "장바구니 담기", "전체상품주문", "관심상품 비우기"];
   const btnImgArr = ["first", "prev", "next", "last"];
   const choiceList = ["주문하기", "장바구니", "삭제"];
-  const [likeList, setLikeInfoList] = useState({}); // 좋아요한 게시물의 정보
+  const [likeList, setLikeInfoList] = useState([]); // 좋아요한 게시물의 정보
   const { isLikeList, setLikeList } = useContext(LikeContext);
 
   // 좋아요한 게시물의 정보 가져오는 함수
@@ -132,7 +133,6 @@ const LikePage = () => {
       const response = await fetch(url);
       const json = await response.json();
       setLikeInfoList(json.reverse());
-      console.log("likeListId");
     }
   };
   const deleteLikeProduct = (idx) => {
@@ -153,54 +153,60 @@ const LikePage = () => {
 
   return (
     <LikePageWrap>
-      <MyPageHeader />
-      <LikePageListWrap>
-        <LikePageListHeadWrap>
-          {productListArr.map((item, idx) =>
-            item === "checkbox" ? (
-              <React.Fragment key={`checkbox-${idx}`}>
-                <CheckBox type="checkbox" id="allCheck" />
-                <Label htmlFor="allCheck" />
-              </React.Fragment>
+      {isMobile ? (
+        <Like likeList={likeList} />
+      ) : (
+        <>
+          <MyPageHeader />
+          <LikePageListWrap>
+            <LikePageListHeadWrap>
+              {productListArr.map((item, idx) =>
+                item === "checkbox" ? (
+                  <React.Fragment key={`checkbox-${idx}`}>
+                    <CheckBox type="checkbox" id="allCheck" />
+                    <Label htmlFor="allCheck" />
+                  </React.Fragment>
+                ) : (
+                  <div key={idx}>{item}</div>
+                )
+              )}
+            </LikePageListHeadWrap>
+            {likeList.length > 0 ? (
+              likeList.map((item, idx) => (
+                <LikeListBtmWrap key={item.idx}>
+                  <CheckBox type="checkbox" id={`chk${idx}`} />
+                  <Label htmlFor={`chk${idx}`} />
+                  <Link to={`/product/${item.pageNum}`}>
+                    <ProductInfoWrap>
+                      <Img src={require(`../assets/images/${item.img}.jpg`)} alt="상품이미지" />
+                      <ProductInfoTitle>{item.name}</ProductInfoTitle>
+                      {/* <ProductOption>옵션변경</ProductOption> */}
+                    </ProductInfoWrap>
+                  </Link>
+                  <Savings>600원(1%)</Savings>
+                  <OptionTxt>기본 배송</OptionTxt>
+                  <OptionTxt>2500</OptionTxt>
+                  <OptionTxt>{item.salePrice}</OptionTxt>
+                  <ChoiceBtnWrap>
+                    {choiceList.map((item, idx) => (
+                      <ChoiceBtn key={idx}>{item}</ChoiceBtn>
+                    ))}
+                  </ChoiceBtnWrap>
+                </LikeListBtmWrap>
+              ))
             ) : (
-              <div key={idx}>{item}</div>
-            )
-          )}
-        </LikePageListHeadWrap>
-        {likeList.length > 0 ? (
-          likeList.map((item, idx) => (
-            <LikeListBtmWrap key={item.idx}>
-              <CheckBox type="checkbox" id={`chk${idx}`} />
-              <Label htmlFor={`chk${idx}`} />
-              <Link to={`/product/${item.pageNum}`}>
-                <ProductInfoWrap>
-                  <Img src={require(`../assets/images/${item.img}.jpg`)} alt="상품이미지" />
-                  <ProductInfoTitle>{item.name}</ProductInfoTitle>
-                  {/* <ProductOption>옵션변경</ProductOption> */}
-                </ProductInfoWrap>
-              </Link>
-              <Savings>600원(1%)</Savings>
-              <OptionTxt>기본 배송</OptionTxt>
-              <OptionTxt>2500</OptionTxt>
-              <OptionTxt>{item.salePrice}</OptionTxt>
-              <ChoiceBtnWrap>
-                {choiceList.map((item, idx) => (
-                  <ChoiceBtn key={idx}>{item}</ChoiceBtn>
-                ))}
-              </ChoiceBtnWrap>
-            </LikeListBtmWrap>
-          ))
-        ) : (
-          <NoneLikeList>관심상품이 없습니다</NoneLikeList>
-        )}
-      </LikePageListWrap>
-      <CommonBtnWrap>
-        {btmButton.map((item, idx) => (
-          <CommonBtn key={idx} onClick={() => deleteLikeProduct(idx)}>
-            {item}
-          </CommonBtn>
-        ))}
-      </CommonBtnWrap>
+              <NoneLikeList>관심상품이 없습니다</NoneLikeList>
+            )}
+          </LikePageListWrap>
+          <CommonBtnWrap>
+            {btmButton.map((item, idx) => (
+              <CommonBtn key={idx} onClick={() => deleteLikeProduct(idx)}>
+                {item}
+              </CommonBtn>
+            ))}
+          </CommonBtnWrap>
+        </>
+      )}
       <PaginationWrap>
         {btnImgArr.map((item) => (
           <img src={require(`../../src/assets/images/btn_page_${item}.png`)} alt={item} />

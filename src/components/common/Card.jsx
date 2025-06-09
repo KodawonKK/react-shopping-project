@@ -89,7 +89,7 @@ const Card = ({ kind, item, grade }) => {
           <Price className="discounted">₩{item.price["sale"]}</Price>
           <Price className="original">{item.price["original"]}</Price>
         </PriceWrap>
-        1{kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
+        {kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
       </PriceInfoWrap>
 
       {kind !== "coordi" && item.colors.map((color, idx) => <ColorBox style={{ background: color.hex }} key={idx}></ColorBox>)}
