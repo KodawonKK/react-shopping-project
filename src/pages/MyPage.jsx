@@ -34,6 +34,7 @@ const MyPageInfoLeft = styled.div`
   display: flex;
   padding-bottom: 10px;
   width: 100%;
+  justify-content: center;
 `;
 const MyInfoImg = styled.img``;
 const MyInfoGradeTxtWrap = styled.div`
@@ -50,9 +51,11 @@ const MyInfoGradeTxt2 = styled.div`
 `;
 const MyInfoGrade = styled.h3`
   font-size: 18px;
+  padding-left: 5px;
 `;
 const MyInfoGradeName = styled.h3`
   font-size: 25px;
+  padding-left: 5px;
 `;
 const MyPageInfoRight = styled.div`
   display: flex;
@@ -118,7 +121,7 @@ const CurrentOrderInfo = styled.div`
   font-size: 14px;
 `;
 
-const MyPage = () => {
+const MyPage = ({ isMobile }) => {
   const myPageItems = [
     { title: "주문내역", count: 3, icon: "mypage_cart", unit: "개" },
     { title: "적립금", count: 12000, icon: "mypage_deposit", unit: "원" },
@@ -128,20 +131,24 @@ const MyPage = () => {
 
   return (
     <MyPageWrap>
-      <MyPageTitle>MY PAGE</MyPageTitle>
-      <MyPageHeader />
+      {!isMobile && (
+        <>
+          <MyPageTitle>MY PAGE</MyPageTitle>
+          <MyPageHeader />
+        </>
+      )}
       <MyPageInfoWrap>
         {/* 마이페이지 상단 */}
         <MyPageInfoTop>
           {/* 마이페이지 프로필 등급 정보 (왼쪽) */}
-          <MyPageInfoLeft>
-            <MyInfoImg src={require("../assets/images/profile.jpg")} />
+          <MyPageInfoLeft isMobile={isMobile}>
+            {!isMobile && <MyInfoImg src={require("../assets/images/profile.jpg")} />}
             <MyInfoGradeTxtWrap>
-              <MyInfoGradeTxt>
-                안녕하세요&nbsp;<MyInfoGradeName>망망망</MyInfoGradeName>님!
+              <MyInfoGradeTxt style={{ justifyContent: isMobile ? "center" : "unset" }}>
+                안녕하세요<MyInfoGradeName>망망망</MyInfoGradeName>님!
               </MyInfoGradeTxt>
               <MyInfoGradeTxt2>
-                고객님의 회원등급은&nbsp;<MyInfoGrade>일반회원</MyInfoGrade>입니다.
+                고객님의 회원등급은<MyInfoGrade>일반회원</MyInfoGrade>입니다.
               </MyInfoGradeTxt2>
             </MyInfoGradeTxtWrap>
             {/* <div>멤버십 확인하기</div> */}
@@ -173,7 +180,10 @@ const MyPage = () => {
           {/* 주문 진행 현황 */}
           <DeliveryStatus>
             {deliveryList.map((item, idx) => (
-              <DeliveryStatusList key={idx}>{item} 0 &gt;</DeliveryStatusList>
+              <>
+                <DeliveryStatusList key={idx}>&nbsp;{item} 0</DeliveryStatusList>
+                {idx < 3 && <div>&nbsp;&gt;</div>}
+              </>
             ))}
           </DeliveryStatus>
         </MyPageInfoBottom>

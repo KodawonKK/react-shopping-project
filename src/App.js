@@ -13,7 +13,6 @@ import Footer from "./components/layout/Footer";
 import SearchPage from "./pages/SearchPage";
 import { useMediaQuery } from "react-responsive";
 import MobileBottomMenu from "./components/common/MobileBottomMenu";
-import MobileHeaderMenu from "./components/common/MobileHeaderMenu";
 
 function App() {
   const { authenticate } = useContext(AuthContext);
@@ -28,7 +27,7 @@ function App() {
         <Route path="/" element={<Home isMobile={isMobile} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:pageNum" element={<ProductDetail />} />
-        <Route path="/mypage" element={authenticate ? <MyPage /> : <Login />} />
+        <Route path="/mypage" element={authenticate ? <MyPage isMobile={isMobile} /> : <Login />} />
         <Route path="/like" element={authenticate ? <LikePage isMobile={isMobile} /> : <Login />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>
