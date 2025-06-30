@@ -70,6 +70,7 @@ const Login = () => {
     let id = userId;
     let pwd = userPwd;
     let url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/user?id=${id}&password=${pwd}`;
+    // let url = `http://localhost:5000/products/user?id=${id}&password=${pwd}`;
     let response = await fetch(url);
 
     if (!response.ok) {
@@ -96,8 +97,20 @@ const Login = () => {
     <LoginWrap>
       <LoginInputWrap onSubmit={(e) => handleLogin(e)}>
         <LoginTitle>로그인</LoginTitle>
-        <LoginInput placeholder="아이디" type="text" value={userId} onChange={(e) => setUserId(e.target.value)} />
-        <LoginInput placeholder="비밀번호" type="password" value={userPwd} onChange={(e) => setUserPwd(e.target.value)} />
+        <LoginInput
+          placeholder="아이디"
+          type="text"
+          value={"test"}
+          // value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+        />
+        <LoginInput
+          placeholder="비밀번호"
+          type="password"
+          //  value={userPwd}
+          value={"1234"}
+          onChange={(e) => setUserPwd(e.target.value)}
+        />
         <LoginBtn type="submit">로그인</LoginBtn>
         <SignTxtWrap>
           <SignTxt>아이디∙비밀번호 찾기</SignTxt>
