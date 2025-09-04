@@ -27,7 +27,7 @@ const HeaderMenu = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 20px 20px;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
 `;
 
 const ImgWrap = styled.div`
