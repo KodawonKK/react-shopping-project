@@ -128,8 +128,8 @@ const LikePage = ({ isMobile }) => {
     const likeListIds = Object.keys(isLikeList);
     const likeListId = likeListIds.map((id) => `pageNum=${id}`).join("&");
     if (likeListId !== "") {
-      const url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products?${likeListId}`;
-      // const url = `http://localhost:5000/products?${likeListId}`;
+      // const url = `https://my-json-server.typicode.com/KodawonKK/react-shopping-project/products?${likeListId}`;
+      const url = `http://localhost:5000/products?${likeListId}`;
       const response = await fetch(url);
       const json = await response.json();
       setLikeInfoList(json.reverse());
@@ -208,8 +208,19 @@ const LikePage = ({ isMobile }) => {
         </>
       )}
       <PaginationWrap>
-        {btnImgArr.map((item) => (
-          <img src={require(`../../src/assets/images/btn_page_${item}.png`)} alt={item} />
+        {btnImgArr.slice(0, 2).map((item, index) => (
+          <img key={index} src={require(`../../src/assets/images/btn_page_${item}.png`)} alt={String(item)} />
+        ))}
+
+        <span>1</span>
+
+        {/* 2, 3번 배열 이미지 */}
+        {btnImgArr.slice(2, 4).map((item, index) => (
+          <img
+            key={index + 2} // key 충돌 방지
+            src={require(`../../src/assets/images/btn_page_${item}.png`)}
+            alt={String(item)}
+          />
         ))}
       </PaginationWrap>
     </LikePageWrap>
