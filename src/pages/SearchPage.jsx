@@ -6,10 +6,15 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 
 const SearchPageWrap = styled.div``;
 const SearchBoxWrap = styled.div`
-  padding: 89px 50px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
+  padding: 0px 0px 25px;
+  margin: 0px auto;
+  position: absolute;
+  left: 0;
+  top: 92px;
+  z-index: 99999;
+  background: #fff;
+  border-top: 1px solid rgb(221, 221, 221);
+  width: 100%;
 `;
 const SearchWrap = styled.div`
   border-bottom: 1px solid #000;
