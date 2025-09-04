@@ -4,9 +4,13 @@ import styled from "styled-components";
 
 const FooterWrap = styled.div`
   border-top: 1px solid #ddd;
+`;
+const FooterBox = styled.div`
   padding: 30px 40px;
   display: flex;
   text-align: left;
+  max-width: 1300px;
+  margin: 0px auto;
 `;
 const Tel = styled.h1`
   font-size: 30px;
@@ -45,24 +49,26 @@ const EtcItem = styled.span``;
 const Footer = () => {
   return (
     <FooterWrap>
-      <FooterLeft>
-        <img src={Logo} alt={"로고"} />
-        <Tel>1670-9910</Tel>
-        <Info>평일 AM 10:00 - PM 05:00 / 점심 PM 12:00 - PM 01:00 / 토요일, 일요일, 공휴일 휴무</Info>
-        <Info>(주)이랜드월드패션사업부　대표이사 : 조동주,최종양　사업자등록번호 : 113-85-19030 </Info>
-        <PolicyWrap>
-          <PolicyItem>이용약관</PolicyItem>
-          <PolicyItem className="point">개인정보처리방침</PolicyItem>
-          <PolicyItem>이용안내</PolicyItem>
-        </PolicyWrap>
-      </FooterLeft>
-      <FooterRight>
-        <h3>ABOUT US</h3>
-        <EtcWrap>
-          <EtcItem>브랜드소개</EtcItem>
-          <EtcItem>매장정보</EtcItem>
-        </EtcWrap>
-      </FooterRight>
+      <FooterBox>
+        <FooterLeft>
+          <img src={Logo} alt={"로고"} />
+          <Tel>1670-9910</Tel>
+          <Info>평일 AM 10:00 - PM 05:00 / 점심 PM 12:00 - PM 01:00 / 토요일, 일요일, 공휴일 휴무</Info>
+          <Info>(주)이랜드월드패션사업부　대표이사 : 조동주,최종양　사업자등록번호 : 113-85-19030 </Info>
+          <PolicyWrap>
+            <PolicyItem>이용약관</PolicyItem>
+            <PolicyItem className="point">개인정보처리방침</PolicyItem>
+            <PolicyItem>이용안내</PolicyItem>
+          </PolicyWrap>
+        </FooterLeft>
+        <FooterRight>
+          <h3>ABOUT US</h3>
+          <EtcWrap>
+            <EtcItem>브랜드소개</EtcItem>
+            <EtcItem>매장정보</EtcItem>
+          </EtcWrap>
+        </FooterRight>
+      </FooterBox>
     </FooterWrap>
   );
 };
