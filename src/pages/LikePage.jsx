@@ -113,6 +113,7 @@ const PaginationWrap = styled.div`
   display: flex;
   justify-content: center;
   padding: 15px 0;
+  align-items: center;
 `;
 
 const LikePage = ({ isMobile }) => {
