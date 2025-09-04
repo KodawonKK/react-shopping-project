@@ -10,11 +10,15 @@ import "swiper/css/autoplay";
 import { useNavigate } from "react-router-dom";
 
 const SearchBoxWrap = styled.div`
-  padding: 20px 50px;
-  /* max-width: 1400px; */
-  margin: 0 auto;
-  position: relative;
-  border-top: 1px solid #ddd;
+  padding: 0px 0px 25px;
+  margin: 0px auto;
+  position: absolute;
+  left: 0;
+  top: 92px;
+  z-index: 99999;
+  background: #fff;
+  border-top: 1px solid rgb(221, 221, 221);
+  width: 100%;
 `;
 const CloseIconWrap = styled.div`
   width: 20px;
