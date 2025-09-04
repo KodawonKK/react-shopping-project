@@ -11,9 +11,10 @@ import { useNavigate } from "react-router-dom";
 
 const SearchBoxWrap = styled.div`
   padding: 20px 50px;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: 0 auto;
   position: relative;
+  border-top: 1px solid #ddd;
 `;
 const CloseIconWrap = styled.div`
   width: 20px;
