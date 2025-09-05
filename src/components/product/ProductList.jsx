@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../common/Card";
+import { useMediaQuery } from "react-responsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -13,6 +14,9 @@ const ProductListWrap = styled.div`
 const Title = styled.h1`
   text-align: center;
   padding: 15px 0;
+  @media (max-width: 720px) {
+    font-size: 20px;
+  }
 `;
 const ProductWrap = styled.div`
   max-width: 1720px;
@@ -25,19 +29,24 @@ const ProductWrap = styled.div`
 `;
 
 const ProductList = ({ title, product, kind }) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 760px)" });
   return (
     <ProductListWrap style={{ margin: "0 auto" }}>
-      <Title style={kind === "coordi" ? { textAlign: "left", padding: "20px 30px", fontSize: "30px", fontWeight: 100 } : {}}>{title}</Title>
+      <Title style={kind === "coordi" ? { textAlign: "left", padding: "20px 30px", fontSize: isMobile ? "20px" : "30px", fontWeight: 100 } : {}}>
+        {title}
+      </Title>
       <ProductWrap>
         <Swiper
-          spaceBetween={20}
+          // spaceBetween={20}
           slidesPerView={4}
           breakpoints={{
             280: {
-              slidesPerView: 1.5 // 모바일
+              slidesPerView: 1.5, // 모바일
+              spaceBetween: 5
             },
             400: {
-              slidesPerView: 2 // 모바일
+              slidesPerView: 2.3,
+              spaceBetween: 5 // 모바일
             },
             650: {
               slidesPerView: 3
