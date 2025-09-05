@@ -11,6 +11,9 @@ const FooterBox = styled.div`
   text-align: left;
   max-width: 1300px;
   margin: 0px auto;
+  @media (max-width: 720px) {
+    padding: 20px 10px;
+  }
 `;
 const Tel = styled.h1`
   font-size: 30px;

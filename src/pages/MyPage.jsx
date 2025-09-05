@@ -65,7 +65,7 @@ const MyPageInfoRight = styled.div`
 `;
 const MyPageItemWrap = styled.div`
   border: 1px solid #e7e7e7;
-  padding: 30px 40px;
+  padding: 10px 20px;
   background: #fff;
   display: flex;
   flex-direction: column;
