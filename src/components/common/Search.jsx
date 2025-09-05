@@ -3,10 +3,11 @@ import styled from "styled-components";
 import SearchIcon from "../../assets/icon/search.svg";
 import CloseIcon from "../../assets/icon/btn_close.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Scrollbar } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
+import "swiper/css/scrollbar";
 import { useNavigate } from "react-router-dom";
 
 const SearchBoxWrap = styled.div`
@@ -19,19 +20,28 @@ const SearchBoxWrap = styled.div`
   background: #fff;
   border-top: 1px solid rgb(221, 221, 221);
   width: 100%;
+  @media (max-width: 760px) {
+    top: 86px;
+  }
 `;
 const CloseIconWrap = styled.div`
   width: 20px;
   position: absolute;
   right: 70px;
-  top: 25px;
+  top: 15px;
   cursor: pointer;
+  z-index: 9;
+  @media (max-width: 760px) {
+    right: 30px;
+  }
 `;
 const SearchWrap = styled.div`
-  border-bottom: 1px solid #000;
-  margin: 30px auto 0;
+  margin: 50px auto 0;
   position: relative;
   max-width: 800px;
+  @media (max-width: 760px) {
+    max-width: 90%;
+  }
 `;
 const SearchInput = styled.input`
   width: 100%;
@@ -39,12 +49,13 @@ const SearchInput = styled.input`
   padding: 10px 0;
   font-size: 20px;
   border: none;
-  margin-left: 35px;
+  /* margin-left: 35px; */
+  border-bottom: 1px solid #000;
 `;
 const SearchImgWrap = styled.div`
   width: 25px;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 8px;
 `;
 const SearchBtmWrap = styled.div`
@@ -53,6 +64,10 @@ const SearchBtmWrap = styled.div`
   align-items: baseline;
   max-width: 800px;
   margin: 0 auto;
+  @media (max-width: 760px) {
+    display: block;
+    padding: 15px 35px;
+  }
 `;
 const BestSearchWrap = styled.div`
   padding: 15px 0;
@@ -66,14 +81,17 @@ const BestSearchRanking = styled.div`
   cursor: pointer;
 `;
 const RecommendProductWrap = styled.div`
-  width: 100%;
+  width: 50%;
+  @media (max-width: 760px) {
+    width: 100%;
+  }
 `;
 const RecommendProduct = styled.div`
   padding: 10px 0;
   font-size: 17px;
 `;
 const RecommendProductList = styled.div`
-  width: 50px;
+  /* width: 50px; */
 `;
 
 const Search = ({ setClose }) => {
@@ -112,7 +130,7 @@ const Search = ({ setClose }) => {
         <SearchImgWrap>
           <img src={SearchIcon} width={"100%"} alt="오른쪽 상단 아이콘" />
         </SearchImgWrap>
-        <SearchInput size={10} maxLength={30} onKeyDown={search} />
+        <SearchInput size={10} maxLength={30} onKeyDown={search} id="search" name="search" placeholder="검색어를 입력해주세요" />
       </SearchWrap>
       <SearchBtmWrap>
         <BestSearchWrap>
@@ -125,7 +143,29 @@ const Search = ({ setClose }) => {
         </BestSearchWrap>
         <RecommendProductWrap>
           <RecommendProduct>추천 상품</RecommendProduct>
-          <Swiper spaceBetween={10} slidesPerView={6} modules={[Navigation]} navigation loop={false}>
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={2.5}
+            modules={[Navigation, Scrollbar]}
+            scrollbar={{ draggable: true }}
+            loop={false}
+            breakpoints={{
+              280: {
+                slidesPerView: 1.5, // 모바일
+                spaceBetween: 5
+              },
+              400: {
+                slidesPerView: 2.3,
+                spaceBetween: 5 // 모바일
+              },
+              760: {
+                slidesPerView: 3
+              },
+              1024: {
+                slidesPerView: 4 // PC
+              }
+            }}
+          >
             {data.map((item, idx) => (
               <SwiperSlide key={idx}>
                 <RecommendProductList>
