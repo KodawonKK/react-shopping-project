@@ -265,8 +265,8 @@ const Header = ({ path }) => {
             </IconMenuWrap>
           </HeaderMenu>
         )}
+        {isClose && <Search closeSearch={closeSearch} setClose={setClose} />}
       </HeaderWrap>
-      {isClose && <Search closeSearch={closeSearch} setClose={setClose} />}
     </>
   );
 };
