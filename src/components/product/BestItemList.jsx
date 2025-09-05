@@ -5,6 +5,9 @@ import styled from "styled-components";
 const Title = styled.h1`
   text-align: center;
   padding: 20px 0;
+  @media (max-width: 720px) {
+    font-size: 20px;
+  }
 `;
 const BestListWrap = styled.div`
   /* padding: 20px 0; */
