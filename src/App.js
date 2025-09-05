@@ -1,7 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import { Route, Routes, useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
-import { LikeContext } from "./contexts/LikeContext";
+// import { LikeContext } from "./contexts/LikeContext";
 import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
