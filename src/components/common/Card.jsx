@@ -28,6 +28,9 @@ const ProductName = styled.h3`
   height: 55px;
   font-size: 17px;
   padding: 10px 0;
+  @media (max-width: 720px) {
+    font-size: 13px;
+  }
 `;
 const PriceInfoWrap = styled.div`
   display: flex;
@@ -38,13 +41,13 @@ const PriceInfoWrap = styled.div`
 const PriceWrap = styled.div`
   display: flex;
   align-items: baseline;
+  gap: 5px;
 `;
 const Price = styled.div`
   &.discounted {
     font-weight: bold;
     color: #000;
     font-size: 20px;
-    padding-right: 10px;
   }
   &.original {
     text-decoration: line-through;
@@ -53,7 +56,10 @@ const Price = styled.div`
   &.percentage {
     color: red;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
+  }
+  @media (max-width: 720px) {
+    font-size: 14px !important;
   }
 `;
 const ColorBox = styled.span`
@@ -86,10 +92,10 @@ const Card = ({ kind, item, grade }) => {
 
       <PriceInfoWrap>
         <PriceWrap>
+          {kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
           <Price className="discounted">₩{item.price["sale"]}</Price>
           <Price className="original">{item.price["original"]}</Price>
         </PriceWrap>
-        {kind !== "coordi" && <Price className="percentage">{discountRate}%</Price>}
       </PriceInfoWrap>
 
       {kind !== "coordi" && item.colors.map((color, idx) => <ColorBox style={{ background: color.hex }} key={idx}></ColorBox>)}
