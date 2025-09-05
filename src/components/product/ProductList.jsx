@@ -37,7 +37,7 @@ const ProductList = ({ title, product, kind }) => {
       </Title>
       <ProductWrap>
         <Swiper
-          // spaceBetween={20}
+          spaceBetween={20}
           slidesPerView={4}
           breakpoints={{
             280: {
